@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package user;
+option go_package="./user";
+
+//心跳
+message Request {
+  string ping = 1;
+}
+
+message Response {
+  string pong = 1;
+}
+
+//登录
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+}
+
+//注册
+message RegisterRequest {
+  string username = 1;
+  string twitterid = 2;
+  string password = 3;
+}
+
+message RegisterResponse {
+  string token = 1;
+}
+
+service User {
+  rpc Ping(Request) returns(Response);      //心跳
+  rpc Login(Request) returns(Response);     //登录
+  rpc Register(Request) returns(Response);  //注册
+}
