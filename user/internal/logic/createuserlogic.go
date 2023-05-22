@@ -2,11 +2,13 @@ package logic
 
 import (
 	"context"
-
+	"fmt"
+	"github.com/bwmarrin/snowflake"
+	"github.com/zeromicro/go-zero/core/logx"
+	"strconv"
+	"user/internal/model"
 	"user/internal/svc"
 	"user/user"
-
-	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type CreateUserLogic struct {
@@ -24,6 +26,21 @@ func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 }
 
 func (l *CreateUserLogic) CreateUser(in *user.CreateUserRequest) (*user.CreateUserResponse, error) {
-	//l.svcCtx.UserModel.FindOne()
-	return &user.CreateUserResponse{}, nil
+	var dbUser model.User
+	dbUser.TwitterId = in.TwitterId
+	// 雪花ID生成
+	node, err := snowflake.NewNode(1)
+	if err != nil {
+		fmt.Println(err)
+	}
+	dbUser.UserId = node.Generate().Int64()
+	// 保存到数据库
+	_, err = l.svcCtx.UserModel.Insert(l.ctx, &dbUser)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	return &user.CreateUserResponse{
+		UserId: strconv.FormatInt(dbUser.UserId, 10),
+	}, nil
 }

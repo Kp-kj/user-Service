@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
+	"strconv"
 	"user/internal/svc"
 	"user/user"
 )
@@ -31,6 +32,6 @@ func (l *CheckTwitterIdLogic) CheckTwitterId(in *user.CheckTwitterIdRequest) (*u
 	}
 
 	return &user.CheckTwitterIdResponse{
-		UserId: string(userData.UserId),
+		UserId: strconv.FormatInt(userData.UserId, 10),
 	}, nil
 }

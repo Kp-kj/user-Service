@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stores/cache"
@@ -41,7 +42,7 @@ type (
 
 	User struct {
 		UserId    int64        `db:"user_id"`
-		CreatedAt sql.NullTime `db:"created_at"`
+		CreatedAt time.Time    `db:"created_at"`
 		UpdatedAt sql.NullTime `db:"updated_at"`
 		DeletedAt sql.NullTime `db:"deleted_at"`
 		TwitterId string       `db:"twitter_id"`

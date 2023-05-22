@@ -1,7 +1,7 @@
 -- user --
 CREATE TABLE `user` (
                          `user_id` bigint(20) NOT NULL,
-                         `created_at` datetime DEFAULT NULL,
+                         `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
                          `updated_at` datetime DEFAULT NULL,
                          `deleted_at` datetime DEFAULT NULL,
                          `twitter_id` varchar(256) NOT NULL,
