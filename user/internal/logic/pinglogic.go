@@ -2,7 +2,7 @@ package logic
 
 import (
 	"context"
-	"fmt"
+
 	"user/internal/svc"
 	"user/user"
 
@@ -23,13 +23,9 @@ func NewPingLogic(ctx context.Context, svcCtx *svc.ServiceContext) *PingLogic {
 	}
 }
 
-// Ping ...
 func (l *PingLogic) Ping(in *user.Request) (*user.Response, error) {
-
-	fmt.Println(in.Ping)
-
-	fmt.Println("pong")
+	// 测试连接
 	return &user.Response{
-		Pong: "pong",
+		Pong: string("pong"),
 	}, nil
 }

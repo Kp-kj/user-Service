@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+
 	"user/internal/config"
 	"user/internal/server"
 	"user/internal/svc"
@@ -23,12 +24,6 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
-
-	//// 创建数据库连接池
-	//db := sqlx.NewMysql(c.DB.DataSource)
-	//
-	//// 将数据库连接池传递给服务上下文
-	//ctx= db
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 		user.RegisterUserServer(grpcServer, server.NewUserServer(ctx))

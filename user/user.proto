@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package user;
+option go_package="./user";
+
+// 枚举类型：响应状态
+enum ResponseStatus {
+  SUCCESS = 0;
+  FAILURE = 1;
+}
+
+// 错误响应消息
+message ErrorResponse {
+  int32 code = 1;
+  string message = 2;
+}
+
+// 通用响应消息
+message ResponseMessage {
+  ResponseStatus status = 1;
+  google.protobuf.Any data = 4;
+}
+
+
+//心跳 连接测试
+message Request {
+  string ping = 1;
+}
+
+message Response {
+  string pong = 1;
+}
+
+
+//查看当前推特id是否存在 返回用户id
+message CheckTwitterIdRequest {
+  string twitter_id = 1;
+}
+
+message CheckTwitterIdResponse {
+  string user_id = 1;
+}
+
+//创建用户
+message CreateUserRequest {
+  string twitter_id = 1;  //推特id
+  string twitter_code = 2;  //推特code
+}
+
+message CreateUserResponse {
+  string user_id = 1;  //用户id
+}
+
+
+service User {
+  rpc Ping(Request) returns(Response);      //心跳 连接测试
+  rpc CheckTwitterId(CheckTwitterIdRequest) returns(CheckTwitterIdResponse);  // 查看当前推特id是否存在 返回用户id
+  rpc CreateUser(CreateUserRequest) returns(CreateUserResponse);  //创建用户
+}

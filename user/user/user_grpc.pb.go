@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	User_Ping_FullMethodName     = "/user.User/Ping"
-	User_Login_FullMethodName    = "/user.User/Login"
-	User_Register_FullMethodName = "/user.User/Register"
+	User_Ping_FullMethodName           = "/user.User/Ping"
+	User_CheckTwitterId_FullMethodName = "/user.User/CheckTwitterId"
+	User_CreateUser_FullMethodName     = "/user.User/CreateUser"
 )
 
 // UserClient is the client API for User service.
@@ -29,8 +29,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserClient interface {
 	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
-	Login(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
-	Register(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequest, opts ...grpc.CallOption) (*CheckTwitterIdResponse, error)
+	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 }
 
 type userClient struct {
@@ -50,18 +50,18 @@ func (c *userClient) Ping(ctx context.Context, in *Request, opts ...grpc.CallOpt
 	return out, nil
 }
 
-func (c *userClient) Login(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
-	err := c.cc.Invoke(ctx, User_Login_FullMethodName, in, out, opts...)
+func (c *userClient) CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequest, opts ...grpc.CallOption) (*CheckTwitterIdResponse, error) {
+	out := new(CheckTwitterIdResponse)
+	err := c.cc.Invoke(ctx, User_CheckTwitterId_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userClient) Register(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
-	err := c.cc.Invoke(ctx, User_Register_FullMethodName, in, out, opts...)
+func (c *userClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
+	out := new(CreateUserResponse)
+	err := c.cc.Invoke(ctx, User_CreateUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -73,8 +73,8 @@ func (c *userClient) Register(ctx context.Context, in *Request, opts ...grpc.Cal
 // for forward compatibility
 type UserServer interface {
 	Ping(context.Context, *Request) (*Response, error)
-	Login(context.Context, *Request) (*Response, error)
-	Register(context.Context, *Request) (*Response, error)
+	CheckTwitterId(context.Context, *CheckTwitterIdRequest) (*CheckTwitterIdResponse, error)
+	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -85,11 +85,11 @@ type UnimplementedUserServer struct {
 func (UnimplementedUserServer) Ping(context.Context, *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
-func (UnimplementedUserServer) Login(context.Context, *Request) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+func (UnimplementedUserServer) CheckTwitterId(context.Context, *CheckTwitterIdRequest) (*CheckTwitterIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckTwitterId not implemented")
 }
-func (UnimplementedUserServer) Register(context.Context, *Request) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+func (UnimplementedUserServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -122,38 +122,38 @@ func _User_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface
 	return interceptor(ctx, in, info, handler)
 }
 
-func _User_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+func _User_CheckTwitterId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckTwitterIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServer).Login(ctx, in)
+		return srv.(UserServer).CheckTwitterId(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: User_Login_FullMethodName,
+		FullMethod: User_CheckTwitterId_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).Login(ctx, req.(*Request))
+		return srv.(UserServer).CheckTwitterId(ctx, req.(*CheckTwitterIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _User_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+func _User_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServer).Register(ctx, in)
+		return srv.(UserServer).CreateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: User_Register_FullMethodName,
+		FullMethod: User_CreateUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).Register(ctx, req.(*Request))
+		return srv.(UserServer).CreateUser(ctx, req.(*CreateUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -170,12 +170,12 @@ var User_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _User_Ping_Handler,
 		},
 		{
-			MethodName: "Login",
-			Handler:    _User_Login_Handler,
+			MethodName: "CheckTwitterId",
+			Handler:    _User_CheckTwitterId_Handler,
 		},
 		{
-			MethodName: "Register",
-			Handler:    _User_Register_Handler,
+			MethodName: "CreateUser",
+			Handler:    _User_CreateUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

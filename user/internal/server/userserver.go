@@ -27,12 +27,12 @@ func (s *UserServer) Ping(ctx context.Context, in *user.Request) (*user.Response
 	return l.Ping(in)
 }
 
-func (s *UserServer) Login(ctx context.Context, in *user.Request) (*user.Response, error) {
-	l := logic.NewLoginLogic(ctx, s.svcCtx)
-	return l.Login(in)
+func (s *UserServer) CheckTwitterId(ctx context.Context, in *user.CheckTwitterIdRequest) (*user.CheckTwitterIdResponse, error) {
+	l := logic.NewCheckTwitterIdLogic(ctx, s.svcCtx)
+	return l.CheckTwitterId(in)
 }
 
-func (s *UserServer) Register(ctx context.Context, in *user.Request) (*user.Response, error) {
-	l := logic.NewRegisterLogic(ctx, s.svcCtx)
-	return l.Register(in)
+func (s *UserServer) CreateUser(ctx context.Context, in *user.CreateUserRequest) (*user.CreateUserResponse, error) {
+	l := logic.NewCreateUserLogic(ctx, s.svcCtx)
+	return l.CreateUser(in)
 }

@@ -13,17 +13,19 @@ import (
 )
 
 type (
-	LoginRequest     = user.LoginRequest
-	LoginResponse    = user.LoginResponse
-	RegisterRequest  = user.RegisterRequest
-	RegisterResponse = user.RegisterResponse
-	Request          = user.Request
-	Response         = user.Response
+	CheckTwitterIdRequest  = user.CheckTwitterIdRequest
+	CheckTwitterIdResponse = user.CheckTwitterIdResponse
+	CreateUserRequest      = user.CreateUserRequest
+	CreateUserResponse     = user.CreateUserResponse
+	ErrorResponse          = user.ErrorResponse
+	Request                = user.Request
+	Response               = user.Response
+	ResponseMessage        = user.ResponseMessage
 
 	User interface {
 		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
-		Login(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
-		Register(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+		CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequest, opts ...grpc.CallOption) (*CheckTwitterIdResponse, error)
+		CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	}
 
 	defaultUser struct {
@@ -42,12 +44,12 @@ func (m *defaultUser) Ping(ctx context.Context, in *Request, opts ...grpc.CallOp
 	return client.Ping(ctx, in, opts...)
 }
 
-func (m *defaultUser) Login(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (m *defaultUser) CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequest, opts ...grpc.CallOption) (*CheckTwitterIdResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.Login(ctx, in, opts...)
+	return client.CheckTwitterId(ctx, in, opts...)
 }
 
-func (m *defaultUser) Register(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (m *defaultUser) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.Register(ctx, in, opts...)
+	return client.CreateUser(ctx, in, opts...)
 }
