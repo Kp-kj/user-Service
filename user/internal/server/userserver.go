@@ -36,3 +36,23 @@ func (s *UserServer) CreateUser(ctx context.Context, in *user.CreateUserRequest)
 	l := logic.NewCreateUserLogic(ctx, s.svcCtx)
 	return l.CreateUser(in)
 }
+
+func (s *UserServer) CreateInvite(ctx context.Context, in *user.CreateInviteRequest) (*user.CreateInviteResponse, error) {
+	l := logic.NewCreateInviteLogic(ctx, s.svcCtx)
+	return l.CreateInvite(in)
+}
+
+func (s *UserServer) CheckTodayInvite(ctx context.Context, in *user.CheckTodayInviteRequest) (*user.CheckTodayInviteResponse, error) {
+	l := logic.NewCheckTodayInviteLogic(ctx, s.svcCtx)
+	return l.CheckTodayInvite(in)
+}
+
+func (s *UserServer) AddUserInfo(ctx context.Context, in *user.AddUserInfoRequest) (*user.AddUserInfoResponse, error) {
+	l := logic.NewAddUserInfoLogic(ctx, s.svcCtx)
+	return l.AddUserInfo(in)
+}
+
+func (s *UserServer) QueryUser(ctx context.Context, in *user.QueryUserRequest) (*user.QueryUserResponse, error) {
+	l := logic.NewQueryUserLogic(ctx, s.svcCtx)
+	return l.QueryUser(in)
+}

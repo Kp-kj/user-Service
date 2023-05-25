@@ -19,9 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	User_Ping_FullMethodName           = "/user.User/Ping"
-	User_CheckTwitterId_FullMethodName = "/user.User/CheckTwitterId"
-	User_CreateUser_FullMethodName     = "/user.User/CreateUser"
+	User_Ping_FullMethodName             = "/user.User/Ping"
+	User_CheckTwitterId_FullMethodName   = "/user.User/CheckTwitterId"
+	User_CreateUser_FullMethodName       = "/user.User/CreateUser"
+	User_CreateInvite_FullMethodName     = "/user.User/CreateInvite"
+	User_CheckTodayInvite_FullMethodName = "/user.User/CheckTodayInvite"
+	User_AddUserInfo_FullMethodName      = "/user.User/AddUserInfo"
+	User_QueryUser_FullMethodName        = "/user.User/QueryUser"
 )
 
 // UserClient is the client API for User service.
@@ -31,6 +35,10 @@ type UserClient interface {
 	Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 	CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequest, opts ...grpc.CallOption) (*CheckTwitterIdResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	CreateInvite(ctx context.Context, in *CreateInviteRequest, opts ...grpc.CallOption) (*CreateInviteResponse, error)
+	CheckTodayInvite(ctx context.Context, in *CheckTodayInviteRequest, opts ...grpc.CallOption) (*CheckTodayInviteResponse, error)
+	AddUserInfo(ctx context.Context, in *AddUserInfoRequest, opts ...grpc.CallOption) (*AddUserInfoResponse, error)
+	QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error)
 }
 
 type userClient struct {
@@ -68,6 +76,42 @@ func (c *userClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts
 	return out, nil
 }
 
+func (c *userClient) CreateInvite(ctx context.Context, in *CreateInviteRequest, opts ...grpc.CallOption) (*CreateInviteResponse, error) {
+	out := new(CreateInviteResponse)
+	err := c.cc.Invoke(ctx, User_CreateInvite_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) CheckTodayInvite(ctx context.Context, in *CheckTodayInviteRequest, opts ...grpc.CallOption) (*CheckTodayInviteResponse, error) {
+	out := new(CheckTodayInviteResponse)
+	err := c.cc.Invoke(ctx, User_CheckTodayInvite_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) AddUserInfo(ctx context.Context, in *AddUserInfoRequest, opts ...grpc.CallOption) (*AddUserInfoResponse, error) {
+	out := new(AddUserInfoResponse)
+	err := c.cc.Invoke(ctx, User_AddUserInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error) {
+	out := new(QueryUserResponse)
+	err := c.cc.Invoke(ctx, User_QueryUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -75,6 +119,10 @@ type UserServer interface {
 	Ping(context.Context, *Request) (*Response, error)
 	CheckTwitterId(context.Context, *CheckTwitterIdRequest) (*CheckTwitterIdResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	CreateInvite(context.Context, *CreateInviteRequest) (*CreateInviteResponse, error)
+	CheckTodayInvite(context.Context, *CheckTodayInviteRequest) (*CheckTodayInviteResponse, error)
+	AddUserInfo(context.Context, *AddUserInfoRequest) (*AddUserInfoResponse, error)
+	QueryUser(context.Context, *QueryUserRequest) (*QueryUserResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -90,6 +138,18 @@ func (UnimplementedUserServer) CheckTwitterId(context.Context, *CheckTwitterIdRe
 }
 func (UnimplementedUserServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (UnimplementedUserServer) CreateInvite(context.Context, *CreateInviteRequest) (*CreateInviteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateInvite not implemented")
+}
+func (UnimplementedUserServer) CheckTodayInvite(context.Context, *CheckTodayInviteRequest) (*CheckTodayInviteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckTodayInvite not implemented")
+}
+func (UnimplementedUserServer) AddUserInfo(context.Context, *AddUserInfoRequest) (*AddUserInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUserInfo not implemented")
+}
+func (UnimplementedUserServer) QueryUser(context.Context, *QueryUserRequest) (*QueryUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryUser not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -158,6 +218,78 @@ func _User_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_CreateInvite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateInviteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).CreateInvite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_CreateInvite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).CreateInvite(ctx, req.(*CreateInviteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_CheckTodayInvite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckTodayInviteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).CheckTodayInvite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_CheckTodayInvite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).CheckTodayInvite(ctx, req.(*CheckTodayInviteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_AddUserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).AddUserInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_AddUserInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).AddUserInfo(ctx, req.(*AddUserInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_QueryUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).QueryUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_QueryUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).QueryUser(ctx, req.(*QueryUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +308,22 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateUser",
 			Handler:    _User_CreateUser_Handler,
+		},
+		{
+			MethodName: "CreateInvite",
+			Handler:    _User_CreateInvite_Handler,
+		},
+		{
+			MethodName: "CheckTodayInvite",
+			Handler:    _User_CheckTodayInvite_Handler,
+		},
+		{
+			MethodName: "AddUserInfo",
+			Handler:    _User_AddUserInfo_Handler,
+		},
+		{
+			MethodName: "QueryUser",
+			Handler:    _User_QueryUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

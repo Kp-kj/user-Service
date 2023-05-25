@@ -13,19 +13,29 @@ import (
 )
 
 type (
-	CheckTwitterIdRequest  = user.CheckTwitterIdRequest
-	CheckTwitterIdResponse = user.CheckTwitterIdResponse
-	CreateUserRequest      = user.CreateUserRequest
-	CreateUserResponse     = user.CreateUserResponse
-	ErrorResponse          = user.ErrorResponse
-	Request                = user.Request
-	Response               = user.Response
-	ResponseMessage        = user.ResponseMessage
+	AddUserInfoRequest       = user.AddUserInfoRequest
+	AddUserInfoResponse      = user.AddUserInfoResponse
+	CheckTodayInviteRequest  = user.CheckTodayInviteRequest
+	CheckTodayInviteResponse = user.CheckTodayInviteResponse
+	CheckTwitterIdRequest    = user.CheckTwitterIdRequest
+	CheckTwitterIdResponse   = user.CheckTwitterIdResponse
+	CreateInviteRequest      = user.CreateInviteRequest
+	CreateInviteResponse     = user.CreateInviteResponse
+	CreateUserRequest        = user.CreateUserRequest
+	CreateUserResponse       = user.CreateUserResponse
+	QueryUserRequest         = user.QueryUserRequest
+	QueryUserResponse        = user.QueryUserResponse
+	Request                  = user.Request
+	Response                 = user.Response
 
 	User interface {
 		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 		CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequest, opts ...grpc.CallOption) (*CheckTwitterIdResponse, error)
 		CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+		CreateInvite(ctx context.Context, in *CreateInviteRequest, opts ...grpc.CallOption) (*CreateInviteResponse, error)
+		CheckTodayInvite(ctx context.Context, in *CheckTodayInviteRequest, opts ...grpc.CallOption) (*CheckTodayInviteResponse, error)
+		AddUserInfo(ctx context.Context, in *AddUserInfoRequest, opts ...grpc.CallOption) (*AddUserInfoResponse, error)
+		QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error)
 	}
 
 	defaultUser struct {
@@ -52,4 +62,24 @@ func (m *defaultUser) CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequ
 func (m *defaultUser) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.CreateUser(ctx, in, opts...)
+}
+
+func (m *defaultUser) CreateInvite(ctx context.Context, in *CreateInviteRequest, opts ...grpc.CallOption) (*CreateInviteResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.CreateInvite(ctx, in, opts...)
+}
+
+func (m *defaultUser) CheckTodayInvite(ctx context.Context, in *CheckTodayInviteRequest, opts ...grpc.CallOption) (*CheckTodayInviteResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.CheckTodayInvite(ctx, in, opts...)
+}
+
+func (m *defaultUser) AddUserInfo(ctx context.Context, in *AddUserInfoRequest, opts ...grpc.CallOption) (*AddUserInfoResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.AddUserInfo(ctx, in, opts...)
+}
+
+func (m *defaultUser) QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.QueryUser(ctx, in, opts...)
 }

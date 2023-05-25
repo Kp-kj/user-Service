@@ -3,10 +3,9 @@ package logic
 import (
 	"context"
 
+	"github.com/zeromicro/go-zero/core/logx"
 	"user/internal/svc"
 	"user/user"
-
-	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type PingLogic struct {

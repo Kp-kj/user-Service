@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
-	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"github.com/zeromicro/go-zero/core/stringx"
@@ -21,9 +20,6 @@ var (
 	userRows                = strings.Join(userFieldNames, ",")
 	userRowsExpectAutoSet   = strings.Join(stringx.Remove(userFieldNames, "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), ",")
 	userRowsWithPlaceHolder = strings.Join(stringx.Remove(userFieldNames, "`user_id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), "=?,") + "=?"
-
-	cacheUserUserIdPrefix    = "cache:user:userId:"
-	cacheUserTwitterIdPrefix = "cache:user:twitterId:"
 )
 
 type (
@@ -36,7 +32,7 @@ type (
 	}
 
 	defaultUserModel struct {
-		sqlc.CachedConn
+		conn  sqlx.SqlConn
 		table string
 	}
 
@@ -49,35 +45,23 @@ type (
 	}
 )
 
-func newUserModel(conn sqlx.SqlConn, c cache.CacheConf, opts ...cache.Option) *defaultUserModel {
+func newUserModel(conn sqlx.SqlConn) *defaultUserModel {
 	return &defaultUserModel{
-		CachedConn: sqlc.NewConn(conn, c, opts...),
-		table:      "`user`",
+		conn:  conn,
+		table: "`user`",
 	}
 }
 
 func (m *defaultUserModel) Delete(ctx context.Context, userId int64) error {
-	data, err := m.FindOne(ctx, userId)
-	if err != nil {
-		return err
-	}
-
-	userTwitterIdKey := fmt.Sprintf("%s%v", cacheUserTwitterIdPrefix, data.TwitterId)
-	userUserIdKey := fmt.Sprintf("%s%v", cacheUserUserIdPrefix, userId)
-	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("delete from %s where `user_id` = ?", m.table)
-		return conn.ExecCtx(ctx, query, userId)
-	}, userTwitterIdKey, userUserIdKey)
+	query := fmt.Sprintf("delete from %s where `user_id` = ?", m.table)
+	_, err := m.conn.ExecCtx(ctx, query, userId)
 	return err
 }
 
 func (m *defaultUserModel) FindOne(ctx context.Context, userId int64) (*User, error) {
-	userUserIdKey := fmt.Sprintf("%s%v", cacheUserUserIdPrefix, userId)
+	query := fmt.Sprintf("select %s from %s where `user_id` = ? limit 1", userRows, m.table)
 	var resp User
-	err := m.QueryRowCtx(ctx, &resp, userUserIdKey, func(ctx context.Context, conn sqlx.SqlConn, v any) error {
-		query := fmt.Sprintf("select %s from %s where `user_id` = ? limit 1", userRows, m.table)
-		return conn.QueryRowCtx(ctx, v, query, userId)
-	})
+	err := m.conn.QueryRowCtx(ctx, &resp, query, userId)
 	switch err {
 	case nil:
 		return &resp, nil
@@ -89,15 +73,9 @@ func (m *defaultUserModel) FindOne(ctx context.Context, userId int64) (*User, er
 }
 
 func (m *defaultUserModel) FindOneByTwitterId(ctx context.Context, twitterId string) (*User, error) {
-	userTwitterIdKey := fmt.Sprintf("%s%v", cacheUserTwitterIdPrefix, twitterId)
 	var resp User
-	err := m.QueryRowIndexCtx(ctx, &resp, userTwitterIdKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v any) (i any, e error) {
-		query := fmt.Sprintf("select %s from %s where `twitter_id` = ? limit 1", userRows, m.table)
-		if err := conn.QueryRowCtx(ctx, &resp, query, twitterId); err != nil {
-			return nil, err
-		}
-		return resp.UserId, nil
-	}, m.queryPrimary)
+	query := fmt.Sprintf("select %s from %s where `twitter_id` = ? limit 1", userRows, m.table)
+	err := m.conn.QueryRowCtx(ctx, &resp, query, twitterId)
 	switch err {
 	case nil:
 		return &resp, nil
@@ -109,37 +87,15 @@ func (m *defaultUserModel) FindOneByTwitterId(ctx context.Context, twitterId str
 }
 
 func (m *defaultUserModel) Insert(ctx context.Context, data *User) (sql.Result, error) {
-	userTwitterIdKey := fmt.Sprintf("%s%v", cacheUserTwitterIdPrefix, data.TwitterId)
-	userUserIdKey := fmt.Sprintf("%s%v", cacheUserUserIdPrefix, data.UserId)
-	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?)", m.table, userRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.UserId, data.DeletedAt, data.TwitterId)
-	}, userTwitterIdKey, userUserIdKey)
+	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?)", m.table, userRowsExpectAutoSet)
+	ret, err := m.conn.ExecCtx(ctx, query, data.UserId, data.DeletedAt, data.TwitterId)
 	return ret, err
 }
 
 func (m *defaultUserModel) Update(ctx context.Context, newData *User) error {
-	data, err := m.FindOne(ctx, newData.UserId)
-	if err != nil {
-		return err
-	}
-
-	userTwitterIdKey := fmt.Sprintf("%s%v", cacheUserTwitterIdPrefix, data.TwitterId)
-	userUserIdKey := fmt.Sprintf("%s%v", cacheUserUserIdPrefix, data.UserId)
-	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("update %s set %s where `user_id` = ?", m.table, userRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.DeletedAt, newData.TwitterId, newData.UserId)
-	}, userTwitterIdKey, userUserIdKey)
+	query := fmt.Sprintf("update %s set %s where `user_id` = ?", m.table, userRowsWithPlaceHolder)
+	_, err := m.conn.ExecCtx(ctx, query, newData.DeletedAt, newData.TwitterId, newData.UserId)
 	return err
-}
-
-func (m *defaultUserModel) formatPrimary(primary any) string {
-	return fmt.Sprintf("%s%v", cacheUserUserIdPrefix, primary)
-}
-
-func (m *defaultUserModel) queryPrimary(ctx context.Context, conn sqlx.SqlConn, v, primary any) error {
-	query := fmt.Sprintf("select %s from %s where `user_id` = ? limit 1", userRows, m.table)
-	return conn.QueryRowCtx(ctx, v, query, primary)
 }
 
 func (m *defaultUserModel) tableName() string {

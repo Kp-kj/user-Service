@@ -5,23 +5,6 @@ import "google/protobuf/any.proto";
 package user;
 option go_package="./user";
 
-// 枚举类型：响应状态
-enum ResponseStatus {
-  SUCCESS = 0;
-  FAILURE = 1;
-}
-
-// 错误响应消息
-message ErrorResponse {
-  int32 code = 1;
-  string message = 2;
-}
-
-// 通用响应消息
-message ResponseMessage {
-  ResponseStatus status = 1;
-  google.protobuf.Any data = 4;
-}
 
 
 //心跳 连接测试
@@ -53,9 +36,72 @@ message CreateUserResponse {
   string user_id = 1;  //用户id
 }
 
+//建立邀请关系
+message CreateInviteRequest {
+  string user_id = 1;  //用户id
+  string invite_id = 2;  //id
+}
+
+message CreateInviteResponse {
+  string invitation_id = 1;  //邀请id
+}
+
+// 检查今天有没有邀请人(给任务服务提供)
+message  CheckTodayInviteRequest {
+  string user_id = 1;  //用户id
+}
+
+message CheckTodayInviteResponse {
+  bool is_invite = 1;  //是否邀请
+}
+
+// 添加用户信息
+message AddUserInfoRequest {
+  string user_id = 1;  //用户id
+  string twitter_name = 2;  //推特名
+  string user_name = 3;  //用户名
+  string user_avatar = 4;  //用户头像
+}
+
+// 添加用户信息
+message AddUserInfoResponse {
+  bool is_success = 1;  //是否成功
+}
+
+
+// 查询用户
+message QueryUserRequest {
+  string user_id = 1;  //用户id
+}
+
+message QueryUserResponse {
+  string twitter_name = 1;  //推特名
+  string user_name = 2;   //用户名
+  string user_avatar = 3; //用户头像
+  int64 is_new = 4; //是否新用户 1新用户 0老用户
+}
 
 service User {
   rpc Ping(Request) returns(Response);      //心跳 连接测试
   rpc CheckTwitterId(CheckTwitterIdRequest) returns(CheckTwitterIdResponse);  // 查看当前推特id是否存在 返回用户id
   rpc CreateUser(CreateUserRequest) returns(CreateUserResponse);  //创建用户
+  rpc CreateInvite(CreateInviteRequest) returns(CreateInviteResponse);  //建立邀请关系
+  rpc CheckTodayInvite(CheckTodayInviteRequest) returns(CheckTodayInviteResponse);  // 检查今天有没有邀请人(给任务服务提供)
+
+  // TODO 以下是今天要完成的接口  5.25  下午四点前提交以下  开日志管理   然后开分支管理
+
+  rpc AddUserInfo(AddUserInfoRequest) returns(AddUserInfoResponse);  // 添加用户信息
+
+  rpc QueryUser(QueryUserRequest) returns(QueryUserResponse);  // 查询用户信息
+
+  // TODO 添加管理员，删除管理员 ,  用户加入黑名单，用户移除黑名单  5.25 8点前搞完    搞定坤要的三个接口
+
+//  rpc AddAdmin(AddAdminRequest) returns(AddAdminResponse);  // 添加管理员
+//
+//  rpc RemoveAdmin(RemoveAdminRequest) returns(RemoveAdminResponse);  // 删除管理员
+//
+//  rpc AddBlackList(AddBlackListRequest) returns(AddBlackListResponse);  // 用户加入黑名单
+//
+//  rpc RemoveBlackList(RemoveBlackListRequest) returns(RemoveBlackListResponse);  // 用户移除黑名单
+
 }
