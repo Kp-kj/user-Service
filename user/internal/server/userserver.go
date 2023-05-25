@@ -56,3 +56,18 @@ func (s *UserServer) QueryUser(ctx context.Context, in *user.QueryUserRequest) (
 	l := logic.NewQueryUserLogic(ctx, s.svcCtx)
 	return l.QueryUser(in)
 }
+
+func (s *UserServer) AddAdmin(ctx context.Context, in *user.AddAdminRequest) (*user.AddAdminResponse, error) {
+	l := logic.NewAddAdminLogic(ctx, s.svcCtx)
+	return l.AddAdmin(in)
+}
+
+func (s *UserServer) AdminLogin(ctx context.Context, in *user.AdminLoginRequest) (*user.AdminLoginResponse, error) {
+	l := logic.NewAdminLoginLogic(ctx, s.svcCtx)
+	return l.AdminLogin(in)
+}
+
+func (s *UserServer) RemoveAdmin(ctx context.Context, in *user.RemoveAdminRequest) (*user.RemoveAdminResponse, error) {
+	l := logic.NewRemoveAdminLogic(ctx, s.svcCtx)
+	return l.RemoveAdmin(in)
+}

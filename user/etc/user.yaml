@@ -1,6 +1,16 @@
 Name: user.rpc
 ListenOn: 0.0.0.0:8080
 
+#日志配置
+Log:
+  ServiceName: gateway-api
+  Mode: file # console, file
+  Path: logs
+  Level: info
+  Encoding: plain # json, plain 日志格式
+  Compress: true # 是否压缩
+  KeepDays: 7 # 保留天数
+
 Etcd:
   Hosts:
   - localhost:2379

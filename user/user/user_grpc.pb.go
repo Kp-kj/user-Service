@@ -26,6 +26,9 @@ const (
 	User_CheckTodayInvite_FullMethodName = "/user.User/CheckTodayInvite"
 	User_AddUserInfo_FullMethodName      = "/user.User/AddUserInfo"
 	User_QueryUser_FullMethodName        = "/user.User/QueryUser"
+	User_AddAdmin_FullMethodName         = "/user.User/AddAdmin"
+	User_AdminLogin_FullMethodName       = "/user.User/AdminLogin"
+	User_RemoveAdmin_FullMethodName      = "/user.User/RemoveAdmin"
 )
 
 // UserClient is the client API for User service.
@@ -39,6 +42,9 @@ type UserClient interface {
 	CheckTodayInvite(ctx context.Context, in *CheckTodayInviteRequest, opts ...grpc.CallOption) (*CheckTodayInviteResponse, error)
 	AddUserInfo(ctx context.Context, in *AddUserInfoRequest, opts ...grpc.CallOption) (*AddUserInfoResponse, error)
 	QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error)
+	AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error)
+	AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
+	RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error)
 }
 
 type userClient struct {
@@ -112,6 +118,33 @@ func (c *userClient) QueryUser(ctx context.Context, in *QueryUserRequest, opts .
 	return out, nil
 }
 
+func (c *userClient) AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error) {
+	out := new(AddAdminResponse)
+	err := c.cc.Invoke(ctx, User_AddAdmin_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error) {
+	out := new(AdminLoginResponse)
+	err := c.cc.Invoke(ctx, User_AdminLogin_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error) {
+	out := new(RemoveAdminResponse)
+	err := c.cc.Invoke(ctx, User_RemoveAdmin_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -123,6 +156,9 @@ type UserServer interface {
 	CheckTodayInvite(context.Context, *CheckTodayInviteRequest) (*CheckTodayInviteResponse, error)
 	AddUserInfo(context.Context, *AddUserInfoRequest) (*AddUserInfoResponse, error)
 	QueryUser(context.Context, *QueryUserRequest) (*QueryUserResponse, error)
+	AddAdmin(context.Context, *AddAdminRequest) (*AddAdminResponse, error)
+	AdminLogin(context.Context, *AdminLoginRequest) (*AdminLoginResponse, error)
+	RemoveAdmin(context.Context, *RemoveAdminRequest) (*RemoveAdminResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -150,6 +186,15 @@ func (UnimplementedUserServer) AddUserInfo(context.Context, *AddUserInfoRequest)
 }
 func (UnimplementedUserServer) QueryUser(context.Context, *QueryUserRequest) (*QueryUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryUser not implemented")
+}
+func (UnimplementedUserServer) AddAdmin(context.Context, *AddAdminRequest) (*AddAdminResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddAdmin not implemented")
+}
+func (UnimplementedUserServer) AdminLogin(context.Context, *AdminLoginRequest) (*AdminLoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminLogin not implemented")
+}
+func (UnimplementedUserServer) RemoveAdmin(context.Context, *RemoveAdminRequest) (*RemoveAdminResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveAdmin not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -290,6 +335,60 @@ func _User_QueryUser_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_AddAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddAdminRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).AddAdmin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_AddAdmin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).AddAdmin(ctx, req.(*AddAdminRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_AdminLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminLoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).AdminLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_AdminLogin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).AdminLogin(ctx, req.(*AdminLoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_RemoveAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveAdminRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).RemoveAdmin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_RemoveAdmin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).RemoveAdmin(ctx, req.(*RemoveAdminRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -324,6 +423,18 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueryUser",
 			Handler:    _User_QueryUser_Handler,
+		},
+		{
+			MethodName: "AddAdmin",
+			Handler:    _User_AddAdmin_Handler,
+		},
+		{
+			MethodName: "AdminLogin",
+			Handler:    _User_AdminLogin_Handler,
+		},
+		{
+			MethodName: "RemoveAdmin",
+			Handler:    _User_RemoveAdmin_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

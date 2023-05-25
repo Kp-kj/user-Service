@@ -13,8 +13,12 @@ import (
 )
 
 type (
+	AddAdminRequest          = user.AddAdminRequest
+	AddAdminResponse         = user.AddAdminResponse
 	AddUserInfoRequest       = user.AddUserInfoRequest
 	AddUserInfoResponse      = user.AddUserInfoResponse
+	AdminLoginRequest        = user.AdminLoginRequest
+	AdminLoginResponse       = user.AdminLoginResponse
 	CheckTodayInviteRequest  = user.CheckTodayInviteRequest
 	CheckTodayInviteResponse = user.CheckTodayInviteResponse
 	CheckTwitterIdRequest    = user.CheckTwitterIdRequest
@@ -25,6 +29,8 @@ type (
 	CreateUserResponse       = user.CreateUserResponse
 	QueryUserRequest         = user.QueryUserRequest
 	QueryUserResponse        = user.QueryUserResponse
+	RemoveAdminRequest       = user.RemoveAdminRequest
+	RemoveAdminResponse      = user.RemoveAdminResponse
 	Request                  = user.Request
 	Response                 = user.Response
 
@@ -36,6 +42,9 @@ type (
 		CheckTodayInvite(ctx context.Context, in *CheckTodayInviteRequest, opts ...grpc.CallOption) (*CheckTodayInviteResponse, error)
 		AddUserInfo(ctx context.Context, in *AddUserInfoRequest, opts ...grpc.CallOption) (*AddUserInfoResponse, error)
 		QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error)
+		AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error)
+		AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
+		RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error)
 	}
 
 	defaultUser struct {
@@ -82,4 +91,19 @@ func (m *defaultUser) AddUserInfo(ctx context.Context, in *AddUserInfoRequest, o
 func (m *defaultUser) QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.QueryUser(ctx, in, opts...)
+}
+
+func (m *defaultUser) AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.AddAdmin(ctx, in, opts...)
+}
+
+func (m *defaultUser) AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.AdminLogin(ctx, in, opts...)
+}
+
+func (m *defaultUser) RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.RemoveAdmin(ctx, in, opts...)
 }

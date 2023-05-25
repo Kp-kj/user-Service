@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/zeromicro/go-zero v1.5.2
+	golang.org/x/crypto v0.6.0
 	google.golang.org/grpc v1.55.0
 	google.golang.org/protobuf v1.30.0
 )

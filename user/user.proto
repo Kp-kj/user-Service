@@ -81,27 +81,60 @@ message QueryUserResponse {
   int64 is_new = 4; //是否新用户 1新用户 0老用户
 }
 
+// 添加管理员
+message  AddAdminRequest {
+  string admin_name = 1;  //管理员名
+  string admin_passwd = 2;  //管理员密码
+}
+
+message AddAdminResponse {
+  bool is_success = 1;  //是否成功
+}
+
+// 管理员登录
+message  AdminLoginRequest {
+  string admin_name = 1;  //管理员名
+  string admin_passwd = 2;  //管理员密码
+}
+
+message AdminLoginResponse {
+  int64 admin_user_id = 1;  //管理员id
+}
+
+// 删除管理员
+message  RemoveAdminRequest {
+  int64 admin_user_id = 1;  //管理员id
+}
+// 删除管理员
+message RemoveAdminResponse {
+  bool is_success = 1;  //是否成功
+}
+
+
+
+
+
+
+
 service User {
   rpc Ping(Request) returns(Response);      //心跳 连接测试
   rpc CheckTwitterId(CheckTwitterIdRequest) returns(CheckTwitterIdResponse);  // 查看当前推特id是否存在 返回用户id
   rpc CreateUser(CreateUserRequest) returns(CreateUserResponse);  //创建用户
   rpc CreateInvite(CreateInviteRequest) returns(CreateInviteResponse);  //建立邀请关系
   rpc CheckTodayInvite(CheckTodayInviteRequest) returns(CheckTodayInviteResponse);  // 检查今天有没有邀请人(给任务服务提供)
-
-  // TODO 以下是今天要完成的接口  5.25  下午四点前提交以下  开日志管理   然后开分支管理
-
   rpc AddUserInfo(AddUserInfoRequest) returns(AddUserInfoResponse);  // 添加用户信息
-
   rpc QueryUser(QueryUserRequest) returns(QueryUserResponse);  // 查询用户信息
 
-  // TODO 添加管理员，删除管理员 ,  用户加入黑名单，用户移除黑名单  5.25 8点前搞完    搞定坤要的三个接口
 
-//  rpc AddAdmin(AddAdminRequest) returns(AddAdminResponse);  // 添加管理员
-//
-//  rpc RemoveAdmin(RemoveAdminRequest) returns(RemoveAdminResponse);  // 删除管理员
-//
-//  rpc AddBlackList(AddBlackListRequest) returns(AddBlackListResponse);  // 用户加入黑名单
-//
-//  rpc RemoveBlackList(RemoveBlackListRequest) returns(RemoveBlackListResponse);  // 用户移除黑名单
+  rpc AddAdmin(AddAdminRequest) returns(AddAdminResponse);  // 添加管理员
+  rpc AdminLogin(AdminLoginRequest) returns(AdminLoginResponse);  // 管理员登录
+  rpc RemoveAdmin(RemoveAdminRequest) returns(RemoveAdminResponse);  // 删除管理员
+
+
+  // TODO: 5.26 完成 下面两个接口   考虑下要不要和用户表结合  有没有必要
+  // TODO: 5.26 将用户服务的request和response 分类放到各自的文件中 有点乱
+  //  rpc AddBlackList(AddBlackListRequest) returns(AddBlackListResponse);  // 用户加入黑名单
+  //  rpc QueryBlackList(QueryBlackListRequest) returns(QueryBlackListResponse);  // 查询黑名单
+  //  rpc RemoveBlackList(RemoveBlackListRequest) returns(RemoveBlackListResponse);  // 用户移除黑名单
 
 }
