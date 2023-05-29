@@ -71,3 +71,18 @@ func (s *UserServer) RemoveAdmin(ctx context.Context, in *user.RemoveAdminReques
 	l := logic.NewRemoveAdminLogic(ctx, s.svcCtx)
 	return l.RemoveAdmin(in)
 }
+
+func (s *UserServer) AddBlackList(ctx context.Context, in *user.AddBlackListRequest) (*user.AddBlackListResponse, error) {
+	l := logic.NewAddBlackListLogic(ctx, s.svcCtx)
+	return l.AddBlackList(in)
+}
+
+func (s *UserServer) QueryBlackList(ctx context.Context, in *user.QueryBlackListRequest) (*user.QueryBlackListResponse, error) {
+	l := logic.NewQueryBlackListLogic(ctx, s.svcCtx)
+	return l.QueryBlackList(in)
+}
+
+func (s *UserServer) RemoveBlackList(ctx context.Context, in *user.RemoveBlackListRequest) (*user.RemoveBlackListResponse, error) {
+	l := logic.NewRemoveBlackListLogic(ctx, s.svcCtx)
+	return l.RemoveBlackList(in)
+}

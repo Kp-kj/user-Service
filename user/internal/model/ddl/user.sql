@@ -64,3 +64,24 @@ CREATE TABLE `profile` (
                            INDEX  `idx_is_new` (`is_new`),
                             UNIQUE (`profile_id`)
 );
+
+
+-- black --
+CREATE TABLE  `black` (
+                          `black_id` BIGINT(20) NOT NULL,
+                          `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+                          `updated_at` DATETIME DEFAULT NULL,
+                          `deleted_at` DATETIME DEFAULT NULL,
+                          `user_id` BIGINT(20) NOT NULL,
+                          `black_user_id` BIGINT(20) NOT NULL,
+                          `start_time` DATETIME NOT NULL,
+                          `end_time` DATETIME NOT NULL,
+                          `black_type` TINYINT(1) NOT NULL DEFAULT 0, # 0 永久 1 临时
+                          PRIMARY KEY (`black_id`),
+                          INDEX `idx_user_id` (`user_id`),
+                          INDEX `idx_black_user_id` (`black_user_id`),
+                          INDEX `idx_start_time` (`start_time`),
+                          INDEX `idx_end_time` (`end_time`),
+                          INDEX `idx_black_type` (`black_type`),
+                          UNIQUE (`black_id`)
+);

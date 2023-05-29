@@ -13,6 +13,7 @@ type ServiceContext struct {
 	InvitationTree model.InvitationTreeModel //邀请关系树
 	Profile        model.ProfileModel        //用户资料
 	AdminUser      model.AdminUserModel      //管理员
+	Black          model.BlackModel          //黑名单
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -23,5 +24,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		InvitationTree: model.NewInvitationTreeModel(sqlx.NewMysql(c.DB.DataSource)),
 		Profile:        model.NewProfileModel(sqlx.NewMysql(c.DB.DataSource)),
 		AdminUser:      model.NewAdminUserModel(sqlx.NewMysql(c.DB.DataSource)),
+		Black:          model.NewBlackModel(sqlx.NewMysql(c.DB.DataSource)),
 	}
 }

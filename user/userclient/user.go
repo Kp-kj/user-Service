@@ -15,6 +15,8 @@ import (
 type (
 	AddAdminRequest          = user.AddAdminRequest
 	AddAdminResponse         = user.AddAdminResponse
+	AddBlackListRequest      = user.AddBlackListRequest
+	AddBlackListResponse     = user.AddBlackListResponse
 	AddUserInfoRequest       = user.AddUserInfoRequest
 	AddUserInfoResponse      = user.AddUserInfoResponse
 	AdminLoginRequest        = user.AdminLoginRequest
@@ -27,10 +29,14 @@ type (
 	CreateInviteResponse     = user.CreateInviteResponse
 	CreateUserRequest        = user.CreateUserRequest
 	CreateUserResponse       = user.CreateUserResponse
+	QueryBlackListRequest    = user.QueryBlackListRequest
+	QueryBlackListResponse   = user.QueryBlackListResponse
 	QueryUserRequest         = user.QueryUserRequest
 	QueryUserResponse        = user.QueryUserResponse
 	RemoveAdminRequest       = user.RemoveAdminRequest
 	RemoveAdminResponse      = user.RemoveAdminResponse
+	RemoveBlackListRequest   = user.RemoveBlackListRequest
+	RemoveBlackListResponse  = user.RemoveBlackListResponse
 	Request                  = user.Request
 	Response                 = user.Response
 
@@ -45,6 +51,9 @@ type (
 		AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error)
 		AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
 		RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error)
+		AddBlackList(ctx context.Context, in *AddBlackListRequest, opts ...grpc.CallOption) (*AddBlackListResponse, error)
+		QueryBlackList(ctx context.Context, in *QueryBlackListRequest, opts ...grpc.CallOption) (*QueryBlackListResponse, error)
+		RemoveBlackList(ctx context.Context, in *RemoveBlackListRequest, opts ...grpc.CallOption) (*RemoveBlackListResponse, error)
 	}
 
 	defaultUser struct {
@@ -106,4 +115,19 @@ func (m *defaultUser) AdminLogin(ctx context.Context, in *AdminLoginRequest, opt
 func (m *defaultUser) RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.RemoveAdmin(ctx, in, opts...)
+}
+
+func (m *defaultUser) AddBlackList(ctx context.Context, in *AddBlackListRequest, opts ...grpc.CallOption) (*AddBlackListResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.AddBlackList(ctx, in, opts...)
+}
+
+func (m *defaultUser) QueryBlackList(ctx context.Context, in *QueryBlackListRequest, opts ...grpc.CallOption) (*QueryBlackListResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.QueryBlackList(ctx, in, opts...)
+}
+
+func (m *defaultUser) RemoveBlackList(ctx context.Context, in *RemoveBlackListRequest, opts ...grpc.CallOption) (*RemoveBlackListResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.RemoveBlackList(ctx, in, opts...)
 }

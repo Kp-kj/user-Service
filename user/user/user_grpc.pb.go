@@ -29,6 +29,9 @@ const (
 	User_AddAdmin_FullMethodName         = "/user.User/AddAdmin"
 	User_AdminLogin_FullMethodName       = "/user.User/AdminLogin"
 	User_RemoveAdmin_FullMethodName      = "/user.User/RemoveAdmin"
+	User_AddBlackList_FullMethodName     = "/user.User/AddBlackList"
+	User_QueryBlackList_FullMethodName   = "/user.User/QueryBlackList"
+	User_RemoveBlackList_FullMethodName  = "/user.User/RemoveBlackList"
 )
 
 // UserClient is the client API for User service.
@@ -45,6 +48,9 @@ type UserClient interface {
 	AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error)
 	AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
 	RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error)
+	AddBlackList(ctx context.Context, in *AddBlackListRequest, opts ...grpc.CallOption) (*AddBlackListResponse, error)
+	QueryBlackList(ctx context.Context, in *QueryBlackListRequest, opts ...grpc.CallOption) (*QueryBlackListResponse, error)
+	RemoveBlackList(ctx context.Context, in *RemoveBlackListRequest, opts ...grpc.CallOption) (*RemoveBlackListResponse, error)
 }
 
 type userClient struct {
@@ -145,6 +151,33 @@ func (c *userClient) RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, op
 	return out, nil
 }
 
+func (c *userClient) AddBlackList(ctx context.Context, in *AddBlackListRequest, opts ...grpc.CallOption) (*AddBlackListResponse, error) {
+	out := new(AddBlackListResponse)
+	err := c.cc.Invoke(ctx, User_AddBlackList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) QueryBlackList(ctx context.Context, in *QueryBlackListRequest, opts ...grpc.CallOption) (*QueryBlackListResponse, error) {
+	out := new(QueryBlackListResponse)
+	err := c.cc.Invoke(ctx, User_QueryBlackList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) RemoveBlackList(ctx context.Context, in *RemoveBlackListRequest, opts ...grpc.CallOption) (*RemoveBlackListResponse, error) {
+	out := new(RemoveBlackListResponse)
+	err := c.cc.Invoke(ctx, User_RemoveBlackList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -159,6 +192,9 @@ type UserServer interface {
 	AddAdmin(context.Context, *AddAdminRequest) (*AddAdminResponse, error)
 	AdminLogin(context.Context, *AdminLoginRequest) (*AdminLoginResponse, error)
 	RemoveAdmin(context.Context, *RemoveAdminRequest) (*RemoveAdminResponse, error)
+	AddBlackList(context.Context, *AddBlackListRequest) (*AddBlackListResponse, error)
+	QueryBlackList(context.Context, *QueryBlackListRequest) (*QueryBlackListResponse, error)
+	RemoveBlackList(context.Context, *RemoveBlackListRequest) (*RemoveBlackListResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -195,6 +231,15 @@ func (UnimplementedUserServer) AdminLogin(context.Context, *AdminLoginRequest) (
 }
 func (UnimplementedUserServer) RemoveAdmin(context.Context, *RemoveAdminRequest) (*RemoveAdminResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveAdmin not implemented")
+}
+func (UnimplementedUserServer) AddBlackList(context.Context, *AddBlackListRequest) (*AddBlackListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddBlackList not implemented")
+}
+func (UnimplementedUserServer) QueryBlackList(context.Context, *QueryBlackListRequest) (*QueryBlackListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryBlackList not implemented")
+}
+func (UnimplementedUserServer) RemoveBlackList(context.Context, *RemoveBlackListRequest) (*RemoveBlackListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveBlackList not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -389,6 +434,60 @@ func _User_RemoveAdmin_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_AddBlackList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddBlackListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).AddBlackList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_AddBlackList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).AddBlackList(ctx, req.(*AddBlackListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_QueryBlackList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryBlackListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).QueryBlackList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_QueryBlackList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).QueryBlackList(ctx, req.(*QueryBlackListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_RemoveBlackList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveBlackListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).RemoveBlackList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_RemoveBlackList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).RemoveBlackList(ctx, req.(*RemoveBlackListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -435,6 +534,18 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveAdmin",
 			Handler:    _User_RemoveAdmin_Handler,
+		},
+		{
+			MethodName: "AddBlackList",
+			Handler:    _User_AddBlackList_Handler,
+		},
+		{
+			MethodName: "QueryBlackList",
+			Handler:    _User_QueryBlackList_Handler,
+		},
+		{
+			MethodName: "RemoveBlackList",
+			Handler:    _User_RemoveBlackList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

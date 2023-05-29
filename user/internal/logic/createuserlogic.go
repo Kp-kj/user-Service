@@ -34,8 +34,7 @@ func (l *CreateUserLogic) CreateUser(in *user.CreateUserRequest) (*user.CreateUs
 		fmt.Println(err)
 	}
 	dbUser.UserId = node.Generate().Int64()
-	// 保存到数据库
-	_, err = l.svcCtx.UserModel.Insert(l.ctx, &dbUser)
+	_, err = l.svcCtx.UserModel.Insert(l.ctx, &dbUser) // 保存到数据库
 	if err != nil {
 		fmt.Println(err)
 		return nil, err

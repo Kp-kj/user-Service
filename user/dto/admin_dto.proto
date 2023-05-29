@@ -1,0 +1,32 @@
+syntax = "proto3";
+import "google/protobuf/any.proto";
+
+
+// 添加管理员
+message  AddAdminRequest {
+  string admin_name = 1;  //管理员名
+  string admin_passwd = 2;  //管理员密码
+}
+
+message AddAdminResponse {
+  bool is_success = 1;  //是否成功
+}
+
+// 管理员登录
+message  AdminLoginRequest {
+  string admin_name = 1;  //管理员名
+  string admin_passwd = 2;  //管理员密码
+}
+
+message AdminLoginResponse {
+  int64 admin_user_id = 1;  //管理员id
+}
+
+// 删除管理员
+message  RemoveAdminRequest {
+  int64 admin_user_id = 1;  //管理员id
+}
+// 删除管理员
+message RemoveAdminResponse {
+  bool is_success = 1;  //是否成功
+}

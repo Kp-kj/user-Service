@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"user/internal/svc"
 	"user/user"
@@ -24,9 +23,9 @@ func NewAdminLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AdminL
 	}
 }
 
+// AdminLogin 管理员登录
 func (l *AdminLoginLogic) AdminLogin(in *user.AdminLoginRequest) (*user.AdminLoginResponse, error) {
 
-	fmt.Println("in.AdminName: ", in.AdminName)
 	//查询是否有管理员
 	dbAdminUser, err := l.svcCtx.AdminUser.FindOneByAdminName(l.ctx, in.AdminName)
 	if err != nil {
