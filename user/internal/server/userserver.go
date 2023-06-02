@@ -86,3 +86,38 @@ func (s *UserServer) RemoveBlackList(ctx context.Context, in *user.RemoveBlackLi
 	l := logic.NewRemoveBlackListLogic(ctx, s.svcCtx)
 	return l.RemoveBlackList(in)
 }
+
+func (s *UserServer) GetHelpCategories(ctx context.Context, in *user.GetHelpCategoriesRequest) (*user.GetHelpCategoriesResponse, error) {
+	l := logic.NewGetHelpCategoriesLogic(ctx, s.svcCtx)
+	return l.GetHelpCategories(in)
+}
+
+func (s *UserServer) CreateHelpCategory(ctx context.Context, in *user.CreateHelpCategoryRequest) (*user.CreateHelpCategoryResponse, error) {
+	l := logic.NewCreateHelpCategoryLogic(ctx, s.svcCtx)
+	return l.CreateHelpCategory(in)
+}
+
+func (s *UserServer) DeleteHelpCategory(ctx context.Context, in *user.DeleteHelpCategoryRequest) (*user.DeleteHelpCategoryResponse, error) {
+	l := logic.NewDeleteHelpCategoryLogic(ctx, s.svcCtx)
+	return l.DeleteHelpCategory(in)
+}
+
+func (s *UserServer) EditHelpCategory(ctx context.Context, in *user.EditHelpCategoryRequest) (*user.EditHelpCategoryResponse, error) {
+	l := logic.NewEditHelpCategoryLogic(ctx, s.svcCtx)
+	return l.EditHelpCategory(in)
+}
+
+func (s *UserServer) CreateHelpCategoryTranslation(ctx context.Context, in *user.CreateHelpCategoryTranslationRequest) (*user.CreateHelpCategoryTranslationResponse, error) {
+	l := logic.NewCreateHelpCategoryTranslationLogic(ctx, s.svcCtx)
+	return l.CreateHelpCategoryTranslation(in)
+}
+
+func (s *UserServer) DeleteHelpCategoryTranslation(ctx context.Context, in *user.DeleteHelpCategoryTranslationRequest) (*user.DeleteHelpCategoryTranslationResponse, error) {
+	l := logic.NewDeleteHelpCategoryTranslationLogic(ctx, s.svcCtx)
+	return l.DeleteHelpCategoryTranslation(in)
+}
+
+func (s *UserServer) GetHelpCategoryTranslations(ctx context.Context, in *user.GetHelpCategoryTranslationsRequest) (*user.GetHelpCategoryTranslationsResponse, error) {
+	l := logic.NewGetHelpCategoryTranslationsLogic(ctx, s.svcCtx)
+	return l.GetHelpCategoryTranslations(in)
+}

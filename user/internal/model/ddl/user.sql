@@ -85,3 +85,4 @@ CREATE TABLE  `black` (
                           INDEX `idx_black_type` (`black_type`),
                           UNIQUE (`black_id`)
 );
+
