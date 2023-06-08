@@ -22,5 +22,6 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          cd user # 切换到 Dockerfile 所在目录
           docker buildx create --use
           docker buildx build --platform linux/amd64,linux/arm64 --push -t fibonacci77777/userservice .
