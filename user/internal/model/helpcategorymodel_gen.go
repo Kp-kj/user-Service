@@ -29,6 +29,8 @@ type (
 		Update(ctx context.Context, data *HelpCategory) error
 		Delete(ctx context.Context, helpCategoryId int64) error
 		FindAll(ctx context.Context) ([]*HelpCategory, error)
+		CheckExistence(ctx context.Context, helpCategoryId int64) (bool, error)
+		Edith(ctx context.Context, helpCategoryId int64, categoryStatus int64) error // 修改帮助分类状态
 	}
 
 	defaultHelpCategoryModel struct {
@@ -51,6 +53,23 @@ func newHelpCategoryModel(conn sqlx.SqlConn) *defaultHelpCategoryModel {
 		table: "`helpCategory`",
 	}
 }
+
+//CheckExistence
+func (m *defaultHelpCategoryModel) CheckExistence(ctx context.Context, helpCategoryId int64) (bool, error) {
+	query := fmt.Sprintf("select * from %s where `helpCategory_id` = ?", m.table)
+	var resp HelpCategory
+	err := m.conn.QueryRowCtx(ctx, &resp, query, helpCategoryId)
+	switch err {
+	case nil:
+		return true, nil
+	case sqlc.ErrNotFound:
+		return false, nil
+	default:
+		return false, err
+
+	}
+}
+
 
 func (m *defaultHelpCategoryModel) Delete(ctx context.Context, helpCategoryId int64) error {
 	query := fmt.Sprintf("delete from %s where `helpCategory_id` = ?", m.table)
@@ -86,6 +105,13 @@ func (m *defaultHelpCategoryModel) FindAll(ctx context.Context) ([]*HelpCategory
 		return nil,err
 	}
 }
+
+func (m *defaultHelpCategoryModel) Edith(ctx context.Context,helpCategoryId int64,categoryStatus int64) error {
+	query:=fmt.Sprintf("update %s set `category_status` = ? where `helpCategory_id` = ?",m.table)
+	_,err:=m.conn.ExecCtx(ctx,query,categoryStatus,helpCategoryId)
+	return err
+}
+
 
 
 func (m *defaultHelpCategoryModel) Insert(ctx context.Context, data *HelpCategory) (sql.Result, error) {

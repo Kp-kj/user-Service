@@ -23,15 +23,16 @@ func NewEditHelpCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
+// EditHelpCategory 修改帮助分类上下架状态
 func (l *EditHelpCategoryLogic) EditHelpCategory(in *user.EditHelpCategoryRequest) (*user.EditHelpCategoryResponse, error) {
 
-	// TODO:  完成修改 help_category 逻辑
-
-	// EditHelpCategory
-
-	// 先查出来再修改
-
-	// 1. 先查出来
-
-	return &user.EditHelpCategoryResponse{}, nil
+	// 修改帮助分类上下架状态
+	err := l.svcCtx.HelpCategory.Edith(l.ctx, in.HelpCategoryId, in.CategoryStatus)
+	if err != nil {
+		logx.Error(err)
+		return nil, err
+	}
+	return &user.EditHelpCategoryResponse{
+		IsSuccess: true,
+	}, nil
 }

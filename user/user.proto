@@ -144,7 +144,7 @@ message RemoveAdminResponse {
 
 // 获取帮助分类
 message  GetHelpCategoriesRequest {
-  //language language = 1;  //语言
+  int64  categoryStatus = 1;  //分类状态 # 0 上架 1 下架 2 全部
 }
 
 // 获取帮助分类数组
@@ -182,8 +182,7 @@ message DeleteHelpCategoryResponse {
 //  编辑帮助分类
 message EditHelpCategoryRequest {
   int64  helpCategoryId = 1;  //帮助分类id
-  int64  createdAt = 2;  //创建时间戳
-  int64  categoryStatus = 3;  //分类状态 # 0:上架 1:下架
+  int64  categoryStatus = 2;  //分类状态 # 0:上架 1:下架
 }
 
 message EditHelpCategoryResponse {
@@ -219,14 +218,11 @@ message GetHelpCategoryTranslationsRequest {
   string language = 2;  //语言
 }
 
-message   HelpCategoryTranslation {
+
+message GetHelpCategoryTranslationsResponse {
   int64  helpCategoryId = 1;  //帮助分类id
   string  language = 2;  //语言
   string  categoryName = 3;  //分类名称
-}
-
-message GetHelpCategoryTranslationsResponse {
-repeated HelpCategoryTranslation help_category_translations = 1;  //帮助分类翻译
 }
 
 
@@ -251,23 +247,18 @@ service User {
   rpc RemoveBlackList(RemoveBlackListRequest) returns(RemoveBlackListResponse);  // 用户移除黑名单
 
 
-  //TODO:需要测试一下   6.4日前 将这部分进行测试  编写测试用例
-  //TODO:6.4日前 将这部分的api接口给到前端  让前端进行修改  6.4日前完成
-  //TODO:6.5日前 将用户服务部署到一台测试服务器上(尝试使用 自动化部署来构建好前端能用的测试环境)  最好集  测试和部署与一体
 
   rpc GetHelpCategories(GetHelpCategoriesRequest) returns(GetHelpCategoriesResponse);  // 获取上架的帮助分类
-
   rpc CreateHelpCategory(CreateHelpCategoryRequest) returns(CreateHelpCategoryResponse);  // 新建帮助分类
-
   rpc DeleteHelpCategory(DeleteHelpCategoryRequest) returns(DeleteHelpCategoryResponse);  // 删除帮助分类
-
   rpc EditHelpCategory(EditHelpCategoryRequest) returns(EditHelpCategoryResponse);  // 编辑帮助分类
-
   rpc CreateHelpCategoryTranslation(CreateHelpCategoryTranslationRequest) returns(CreateHelpCategoryTranslationResponse);  // 新建帮助分类翻译
-
   rpc DeleteHelpCategoryTranslation(DeleteHelpCategoryTranslationRequest) returns(DeleteHelpCategoryTranslationResponse);  // 删除帮助分类翻译
-
   rpc GetHelpCategoryTranslations(GetHelpCategoryTranslationsRequest) returns(GetHelpCategoryTranslationsResponse);  // 获取帮助分类翻译
+
+
+
+
 
 
 }
