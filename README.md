@@ -1,5 +1,5 @@
 # user-service 
-
+[![Build and Push Docker Image](https://github.com/Kp-kj/user-Service/actions/workflows/go.yml/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/go.yml)
 ## 项目结构
 ```
 ├── README.md
