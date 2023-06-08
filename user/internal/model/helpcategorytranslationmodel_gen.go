@@ -26,7 +26,7 @@ type (
 	helpCategoryTranslationModel interface {
 		Insert(ctx context.Context, data *HelpCategoryTranslation) (sql.Result, error)
 		FindOne(ctx context.Context, helpCategoryTranslationId int64) (*HelpCategoryTranslation, error)
-		FindOneByHelpCategoryIdLanguageCode(ctx context.Context, helpCategoryId int64, languageCode string) ([]*HelpCategoryTranslation, error)
+		FindOneByHelpCategoryIdLanguageCode(ctx context.Context, helpCategoryId int64, languageCode string) (*HelpCategoryTranslation, error)
 		Update(ctx context.Context, data *HelpCategoryTranslation) error
 		Delete(ctx context.Context, helpCategoryTranslationId int64) error
 		DeleteByHelpCategoryIdLanguageCode(ctx context.Context, helpCategoryId int64, languageCode string) error
@@ -85,13 +85,14 @@ func (m *defaultHelpCategoryTranslationModel) FindOne(ctx context.Context, helpC
 	}
 }
 
-func (m *defaultHelpCategoryTranslationModel) FindOneByHelpCategoryIdLanguageCode(ctx context.Context, helpCategoryId int64, languageCode string) ([]*HelpCategoryTranslation, error) {
+// FindOneByHelpCategoryIdLanguageCode 根据帮助分类ID和语言代码查找
+func (m *defaultHelpCategoryTranslationModel) FindOneByHelpCategoryIdLanguageCode(ctx context.Context, helpCategoryId int64, languageCode string) (*HelpCategoryTranslation, error) {
 	query := fmt.Sprintf("select %s from %s where `helpCategory_id` = ? and `language_code` = ? limit 1", helpCategoryTranslationRows, m.table)
-	var resp []*HelpCategoryTranslation
+	var resp HelpCategoryTranslation
 	err := m.conn.QueryRowCtx(ctx, &resp, query, helpCategoryId, languageCode)
 	switch err {
 	case nil:
-		return resp, nil
+		return &resp, nil
 	case sqlc.ErrNotFound:
 		return nil, ErrNotFound
 	default:

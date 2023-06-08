@@ -25,7 +25,21 @@ func NewDeleteHelpCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 
 // DeleteHelpCategory 删除帮助分类
 func (l *DeleteHelpCategoryLogic) DeleteHelpCategory(in *user.DeleteHelpCategoryRequest) (*user.DeleteHelpCategoryResponse, error) {
-	err := l.svcCtx.HelpCategory.Delete(l.ctx, in.HelpCategoryId)
+	// 先检查帮助分类是否存在
+	exists, err := l.svcCtx.HelpCategory.CheckExistence(l.ctx, in.HelpCategoryId)
+	if err != nil {
+		logx.Error(err)
+		return nil, err
+	}
+
+	if !exists {
+		return &user.DeleteHelpCategoryResponse{
+			IsSuccess: false,
+		}, nil
+	}
+
+	// 执行删除操作
+	err = l.svcCtx.HelpCategory.Delete(l.ctx, in.HelpCategoryId)
 	if err != nil {
 		logx.Error(err)
 		return nil, err

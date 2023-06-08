@@ -44,7 +44,6 @@ type (
 	GetHelpCategoryTranslationsRequest    = user.GetHelpCategoryTranslationsRequest
 	GetHelpCategoryTranslationsResponse   = user.GetHelpCategoryTranslationsResponse
 	HelpCategory                          = user.HelpCategory
-	HelpCategoryTranslation               = user.HelpCategoryTranslation
 	QueryBlackListRequest                 = user.QueryBlackListRequest
 	QueryBlackListResponse                = user.QueryBlackListResponse
 	QueryUserRequest                      = user.QueryUserRequest

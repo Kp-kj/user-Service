@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-
 	"user/internal/svc"
 	"user/user"
 
@@ -34,17 +33,9 @@ func (l *GetHelpCategoryTranslationsLogic) GetHelpCategoryTranslations(in *user.
 		return nil, err
 	}
 
-	response := &user.GetHelpCategoryTranslationsResponse{
-		HelpCategoryTranslations: make([]*user.HelpCategoryTranslation, 0, len(dbHelpCategoryTranslation)),
-	}
-
-	for _, category := range dbHelpCategoryTranslation {
-		helpCategoryTranslation := &user.HelpCategoryTranslation{
-			HelpCategoryId: category.HelpCategoryId,
-			Language:       "category.Language",
-		}
-		response.HelpCategoryTranslations = append(response.HelpCategoryTranslations, helpCategoryTranslation)
-	}
-
-	return response, nil
+	return &user.GetHelpCategoryTranslationsResponse{
+		HelpCategoryId: dbHelpCategoryTranslation.HelpCategoryId,
+		Language:       dbHelpCategoryTranslation.LanguageCode,
+		CategoryName:   dbHelpCategoryTranslation.CategoryName,
+	}, nil
 }

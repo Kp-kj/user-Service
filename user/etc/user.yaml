@@ -13,8 +13,7 @@ Log:
 
 Etcd:
   Hosts:
-  - localhost:2379
-  - localhost:2379
+  - http://47.243.34.199:2379
   Key: user.rpc
 
 DB:
