@@ -1,5 +1,5 @@
 # user-service 
-[![Build and Push Docker Image](https://github.com/Kp-kj/user-Service/actions/workflows/go.yml/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/go.yml)[![Sync Develop to Release](https://github.com/Kp-kj/user-Service/actions/workflows/daily-to-release-sync.yml/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/daily-to-release-sync.yml)
+[![CodeQL](https://github.com/Kp-kj/user-Service/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/github-code-scanning/codeql)[![Build and Push Docker Image](https://github.com/Kp-kj/user-Service/actions/workflows/go.yml/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/go.yml)[![Sync Develop to Release](https://github.com/Kp-kj/user-Service/actions/workflows/daily-to-release-sync.yml/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/daily-to-release-sync.yml)
 
 ## 项目结构
 ```
