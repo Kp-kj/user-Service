@@ -7,3 +7,10 @@
 2023-06-07T16:25:56.979+08:00	[31;1m error [0m	context deadline exceeded	caller=zrpc/server.go:92
 2023-06-07T16:30:05.235+08:00	[31;1m error [0m	context deadline exceeded	caller=zrpc/server.go:92
 2023-06-07T16:31:22.158+08:00	[31;1m error [0m	context deadline exceeded	caller=zrpc/server.go:92
+2023-06-12T09:52:08.240+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-12T09:59:28.255+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-12T10:15:06.666+08:00	[31;1m error [0m	sql: no rows in result set	caller=logic/adminloginlogic.go:32
+2023-06-12T10:15:07.973+08:00	[31;1m error [0m	sql: no rows in result set	caller=logic/adminloginlogic.go:32
+2023-06-12T12:49:17.721+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-12T13:01:37.738+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-12T13:07:35.839+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
