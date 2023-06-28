@@ -16,3 +16,9 @@
 2023-06-12T13:07:35.839+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
 2023-06-13T10:28:07.653+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
 2023-06-13T10:31:27.661+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-28T18:57:36.487+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-28T19:01:09.018+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-28T19:04:05.556+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-28T19:07:18.162+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
+2023-06-28T19:07:27.400+08:00	[31;1m error [0m	etcd publisher revoke: etcdserver: requested lease not found	caller=discov/publisher.go:178
+2023-06-28T19:09:38.164+08:00	[31;1m error [0m	[transport]Client received GoAway with error code ENHANCE_YOUR_CALM and debug data equal to ASCII "too_many_pings".	caller=internal/rpclogger.go:30
