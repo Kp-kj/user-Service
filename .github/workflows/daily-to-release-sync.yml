@@ -1,6 +1,9 @@
 name: Sync Develop to Release
 
 on:
+  push:
+      branches:
+        - release
   schedule:
     - cron: "0 4 * * *"
   workflow_dispatch:  # 手动触发器
