@@ -1,4 +1,5 @@
 # user-service 
+[![CodeQL](https://github.com/Kp-kj/user-Service/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/github-code-scanning/codeql)[![Build and Push Docker Image](https://github.com/Kp-kj/user-Service/actions/workflows/go.yml/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/go.yml)[![Sync Develop to Release](https://github.com/Kp-kj/user-Service/actions/workflows/daily-to-release-sync.yml/badge.svg)](https://github.com/Kp-kj/user-Service/actions/workflows/daily-to-release-sync.yml)
 
 ## 项目结构
 ```
@@ -30,7 +31,7 @@
 - go run user.go -f etc/user.yaml
 
 注意：如果启动失败，可能是因为没有安装依赖，可以使用 go mod tidy 安装依赖
-项目运行在 8080 端口,  如果需要调试，可以在 user.go 中修改端口
+项目运行在 8080 端口,  如果需要调试，可以在 u ser.go 中修改端口
 如需访问请先启动 etcd
 
 ```
@@ -56,3 +57,26 @@ set ETCDCTL_API=3
 ```
 注： 带缓存创建mysql的命令是 
 goctl model mysql ddl --src user.sql --dir ./cache -cache
+
+
+启动该容器在服务器上 
+
+拉取 最新docker 镜像
+docker pull fibonacci77777/userservice
+
+启动容器 映射端口
+docker run -d -p 8081:8080 --name userservice fibonacci77777/userservice
+
+
+附： 会用到的docker命令
+docker ps -a
+docker ps  // 查看正在运行的容器
+docker ps -a   // 查看所有容器
+docker stop 98f7a8061434 // 停止容器
+docker rm 98f7a8061434  // 删除容器
+docker rmi 98f7a8061434  // 删除镜像
+
+
+docker-compose up -d  // 后台启动容器
+docker-compose stop <服务名称>
+docker-compose rm <服务名称>

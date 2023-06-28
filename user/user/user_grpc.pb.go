@@ -19,19 +19,26 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	User_Ping_FullMethodName             = "/user.User/Ping"
-	User_CheckTwitterId_FullMethodName   = "/user.User/CheckTwitterId"
-	User_CreateUser_FullMethodName       = "/user.User/CreateUser"
-	User_CreateInvite_FullMethodName     = "/user.User/CreateInvite"
-	User_CheckTodayInvite_FullMethodName = "/user.User/CheckTodayInvite"
-	User_AddUserInfo_FullMethodName      = "/user.User/AddUserInfo"
-	User_QueryUser_FullMethodName        = "/user.User/QueryUser"
-	User_AddAdmin_FullMethodName         = "/user.User/AddAdmin"
-	User_AdminLogin_FullMethodName       = "/user.User/AdminLogin"
-	User_RemoveAdmin_FullMethodName      = "/user.User/RemoveAdmin"
-	User_AddBlackList_FullMethodName     = "/user.User/AddBlackList"
-	User_QueryBlackList_FullMethodName   = "/user.User/QueryBlackList"
-	User_RemoveBlackList_FullMethodName  = "/user.User/RemoveBlackList"
+	User_Ping_FullMethodName                          = "/user.User/Ping"
+	User_CheckTwitterId_FullMethodName                = "/user.User/CheckTwitterId"
+	User_CreateUser_FullMethodName                    = "/user.User/CreateUser"
+	User_CreateInvite_FullMethodName                  = "/user.User/CreateInvite"
+	User_CheckTodayInvite_FullMethodName              = "/user.User/CheckTodayInvite"
+	User_AddUserInfo_FullMethodName                   = "/user.User/AddUserInfo"
+	User_QueryUser_FullMethodName                     = "/user.User/QueryUser"
+	User_AddAdmin_FullMethodName                      = "/user.User/AddAdmin"
+	User_AdminLogin_FullMethodName                    = "/user.User/AdminLogin"
+	User_RemoveAdmin_FullMethodName                   = "/user.User/RemoveAdmin"
+	User_AddBlackList_FullMethodName                  = "/user.User/AddBlackList"
+	User_QueryBlackList_FullMethodName                = "/user.User/QueryBlackList"
+	User_RemoveBlackList_FullMethodName               = "/user.User/RemoveBlackList"
+	User_GetHelpCategories_FullMethodName             = "/user.User/GetHelpCategories"
+	User_CreateHelpCategory_FullMethodName            = "/user.User/CreateHelpCategory"
+	User_DeleteHelpCategory_FullMethodName            = "/user.User/DeleteHelpCategory"
+	User_EditHelpCategory_FullMethodName              = "/user.User/EditHelpCategory"
+	User_CreateHelpCategoryTranslation_FullMethodName = "/user.User/CreateHelpCategoryTranslation"
+	User_DeleteHelpCategoryTranslation_FullMethodName = "/user.User/DeleteHelpCategoryTranslation"
+	User_GetHelpCategoryTranslations_FullMethodName   = "/user.User/GetHelpCategoryTranslations"
 )
 
 // UserClient is the client API for User service.
@@ -51,6 +58,13 @@ type UserClient interface {
 	AddBlackList(ctx context.Context, in *AddBlackListRequest, opts ...grpc.CallOption) (*AddBlackListResponse, error)
 	QueryBlackList(ctx context.Context, in *QueryBlackListRequest, opts ...grpc.CallOption) (*QueryBlackListResponse, error)
 	RemoveBlackList(ctx context.Context, in *RemoveBlackListRequest, opts ...grpc.CallOption) (*RemoveBlackListResponse, error)
+	GetHelpCategories(ctx context.Context, in *GetHelpCategoriesRequest, opts ...grpc.CallOption) (*GetHelpCategoriesResponse, error)
+	CreateHelpCategory(ctx context.Context, in *CreateHelpCategoryRequest, opts ...grpc.CallOption) (*CreateHelpCategoryResponse, error)
+	DeleteHelpCategory(ctx context.Context, in *DeleteHelpCategoryRequest, opts ...grpc.CallOption) (*DeleteHelpCategoryResponse, error)
+	EditHelpCategory(ctx context.Context, in *EditHelpCategoryRequest, opts ...grpc.CallOption) (*EditHelpCategoryResponse, error)
+	CreateHelpCategoryTranslation(ctx context.Context, in *CreateHelpCategoryTranslationRequest, opts ...grpc.CallOption) (*CreateHelpCategoryTranslationResponse, error)
+	DeleteHelpCategoryTranslation(ctx context.Context, in *DeleteHelpCategoryTranslationRequest, opts ...grpc.CallOption) (*DeleteHelpCategoryTranslationResponse, error)
+	GetHelpCategoryTranslations(ctx context.Context, in *GetHelpCategoryTranslationsRequest, opts ...grpc.CallOption) (*GetHelpCategoryTranslationsResponse, error)
 }
 
 type userClient struct {
@@ -178,6 +192,69 @@ func (c *userClient) RemoveBlackList(ctx context.Context, in *RemoveBlackListReq
 	return out, nil
 }
 
+func (c *userClient) GetHelpCategories(ctx context.Context, in *GetHelpCategoriesRequest, opts ...grpc.CallOption) (*GetHelpCategoriesResponse, error) {
+	out := new(GetHelpCategoriesResponse)
+	err := c.cc.Invoke(ctx, User_GetHelpCategories_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) CreateHelpCategory(ctx context.Context, in *CreateHelpCategoryRequest, opts ...grpc.CallOption) (*CreateHelpCategoryResponse, error) {
+	out := new(CreateHelpCategoryResponse)
+	err := c.cc.Invoke(ctx, User_CreateHelpCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) DeleteHelpCategory(ctx context.Context, in *DeleteHelpCategoryRequest, opts ...grpc.CallOption) (*DeleteHelpCategoryResponse, error) {
+	out := new(DeleteHelpCategoryResponse)
+	err := c.cc.Invoke(ctx, User_DeleteHelpCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) EditHelpCategory(ctx context.Context, in *EditHelpCategoryRequest, opts ...grpc.CallOption) (*EditHelpCategoryResponse, error) {
+	out := new(EditHelpCategoryResponse)
+	err := c.cc.Invoke(ctx, User_EditHelpCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) CreateHelpCategoryTranslation(ctx context.Context, in *CreateHelpCategoryTranslationRequest, opts ...grpc.CallOption) (*CreateHelpCategoryTranslationResponse, error) {
+	out := new(CreateHelpCategoryTranslationResponse)
+	err := c.cc.Invoke(ctx, User_CreateHelpCategoryTranslation_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) DeleteHelpCategoryTranslation(ctx context.Context, in *DeleteHelpCategoryTranslationRequest, opts ...grpc.CallOption) (*DeleteHelpCategoryTranslationResponse, error) {
+	out := new(DeleteHelpCategoryTranslationResponse)
+	err := c.cc.Invoke(ctx, User_DeleteHelpCategoryTranslation_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) GetHelpCategoryTranslations(ctx context.Context, in *GetHelpCategoryTranslationsRequest, opts ...grpc.CallOption) (*GetHelpCategoryTranslationsResponse, error) {
+	out := new(GetHelpCategoryTranslationsResponse)
+	err := c.cc.Invoke(ctx, User_GetHelpCategoryTranslations_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -195,6 +272,13 @@ type UserServer interface {
 	AddBlackList(context.Context, *AddBlackListRequest) (*AddBlackListResponse, error)
 	QueryBlackList(context.Context, *QueryBlackListRequest) (*QueryBlackListResponse, error)
 	RemoveBlackList(context.Context, *RemoveBlackListRequest) (*RemoveBlackListResponse, error)
+	GetHelpCategories(context.Context, *GetHelpCategoriesRequest) (*GetHelpCategoriesResponse, error)
+	CreateHelpCategory(context.Context, *CreateHelpCategoryRequest) (*CreateHelpCategoryResponse, error)
+	DeleteHelpCategory(context.Context, *DeleteHelpCategoryRequest) (*DeleteHelpCategoryResponse, error)
+	EditHelpCategory(context.Context, *EditHelpCategoryRequest) (*EditHelpCategoryResponse, error)
+	CreateHelpCategoryTranslation(context.Context, *CreateHelpCategoryTranslationRequest) (*CreateHelpCategoryTranslationResponse, error)
+	DeleteHelpCategoryTranslation(context.Context, *DeleteHelpCategoryTranslationRequest) (*DeleteHelpCategoryTranslationResponse, error)
+	GetHelpCategoryTranslations(context.Context, *GetHelpCategoryTranslationsRequest) (*GetHelpCategoryTranslationsResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -240,6 +324,27 @@ func (UnimplementedUserServer) QueryBlackList(context.Context, *QueryBlackListRe
 }
 func (UnimplementedUserServer) RemoveBlackList(context.Context, *RemoveBlackListRequest) (*RemoveBlackListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveBlackList not implemented")
+}
+func (UnimplementedUserServer) GetHelpCategories(context.Context, *GetHelpCategoriesRequest) (*GetHelpCategoriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHelpCategories not implemented")
+}
+func (UnimplementedUserServer) CreateHelpCategory(context.Context, *CreateHelpCategoryRequest) (*CreateHelpCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateHelpCategory not implemented")
+}
+func (UnimplementedUserServer) DeleteHelpCategory(context.Context, *DeleteHelpCategoryRequest) (*DeleteHelpCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteHelpCategory not implemented")
+}
+func (UnimplementedUserServer) EditHelpCategory(context.Context, *EditHelpCategoryRequest) (*EditHelpCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditHelpCategory not implemented")
+}
+func (UnimplementedUserServer) CreateHelpCategoryTranslation(context.Context, *CreateHelpCategoryTranslationRequest) (*CreateHelpCategoryTranslationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateHelpCategoryTranslation not implemented")
+}
+func (UnimplementedUserServer) DeleteHelpCategoryTranslation(context.Context, *DeleteHelpCategoryTranslationRequest) (*DeleteHelpCategoryTranslationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteHelpCategoryTranslation not implemented")
+}
+func (UnimplementedUserServer) GetHelpCategoryTranslations(context.Context, *GetHelpCategoryTranslationsRequest) (*GetHelpCategoryTranslationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHelpCategoryTranslations not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -488,6 +593,132 @@ func _User_RemoveBlackList_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_GetHelpCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetHelpCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetHelpCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetHelpCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetHelpCategories(ctx, req.(*GetHelpCategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_CreateHelpCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateHelpCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).CreateHelpCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_CreateHelpCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).CreateHelpCategory(ctx, req.(*CreateHelpCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_DeleteHelpCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteHelpCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).DeleteHelpCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_DeleteHelpCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).DeleteHelpCategory(ctx, req.(*DeleteHelpCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_EditHelpCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditHelpCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).EditHelpCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_EditHelpCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).EditHelpCategory(ctx, req.(*EditHelpCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_CreateHelpCategoryTranslation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateHelpCategoryTranslationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).CreateHelpCategoryTranslation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_CreateHelpCategoryTranslation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).CreateHelpCategoryTranslation(ctx, req.(*CreateHelpCategoryTranslationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_DeleteHelpCategoryTranslation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteHelpCategoryTranslationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).DeleteHelpCategoryTranslation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_DeleteHelpCategoryTranslation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).DeleteHelpCategoryTranslation(ctx, req.(*DeleteHelpCategoryTranslationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_GetHelpCategoryTranslations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetHelpCategoryTranslationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetHelpCategoryTranslations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetHelpCategoryTranslations_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetHelpCategoryTranslations(ctx, req.(*GetHelpCategoryTranslationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -546,6 +777,34 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveBlackList",
 			Handler:    _User_RemoveBlackList_Handler,
+		},
+		{
+			MethodName: "GetHelpCategories",
+			Handler:    _User_GetHelpCategories_Handler,
+		},
+		{
+			MethodName: "CreateHelpCategory",
+			Handler:    _User_CreateHelpCategory_Handler,
+		},
+		{
+			MethodName: "DeleteHelpCategory",
+			Handler:    _User_DeleteHelpCategory_Handler,
+		},
+		{
+			MethodName: "EditHelpCategory",
+			Handler:    _User_EditHelpCategory_Handler,
+		},
+		{
+			MethodName: "CreateHelpCategoryTranslation",
+			Handler:    _User_CreateHelpCategoryTranslation_Handler,
+		},
+		{
+			MethodName: "DeleteHelpCategoryTranslation",
+			Handler:    _User_DeleteHelpCategoryTranslation_Handler,
+		},
+		{
+			MethodName: "GetHelpCategoryTranslations",
+			Handler:    _User_GetHelpCategoryTranslations_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

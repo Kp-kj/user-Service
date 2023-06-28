@@ -1,0 +1,42 @@
+name: Sync Develop to Release
+
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:  # 手动触发器
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Git Identity
+        run: |
+          git config user.email "edchiris@gmail.com"
+          git config user.name "Ed"
+
+      - name: Fetch All Branches
+        run: git fetch --all
+
+      - name: Create and Checkout Local Release Branch
+        run: |
+          git branch release origin/release
+          git checkout release
+
+      - name: Pull Latest Changes for Release Branch
+        run: git pull origin release
+
+      - name: Merge Develop into Release Branch
+        run: |
+          git merge --allow-unrelated-histories -X theirs develop
+
+      - name: Commit Merge Result
+        run: |
+          git commit -am "Merge develop into release"
+
+      - name: Push Release Branch to Remote Repository
+        run: |
+          git push --force origin release

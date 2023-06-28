@@ -1053,400 +1053,494 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="305" parent="297" name="invitation">
+    <table id="305" parent="297" name="helpcategory">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="306" parent="297" name="invitation_tree">
+    <table id="306" parent="297" name="helpcategorytranslation">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="307" parent="297" name="profile">
+    <table id="307" parent="297" name="invitation">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="308" parent="297" name="user">
+    <table id="308" parent="297" name="invitation_tree">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="309" parent="303" name="admin_user_id">
+    <table id="309" parent="297" name="profile">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="310" parent="297" name="user">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="311" parent="303" name="admin_user_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="310" parent="303" name="created_at">
+    <column id="312" parent="303" name="created_at">
       <DataType>datetime|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="311" parent="303" name="updated_at">
+    <column id="313" parent="303" name="updated_at">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="312" parent="303" name="deleted_at">
+    <column id="314" parent="303" name="deleted_at">
       <DataType>datetime|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="313" parent="303" name="admin_name">
+    <column id="315" parent="303" name="admin_name">
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="314" parent="303" name="admin_passwd">
+    <column id="316" parent="303" name="admin_passwd">
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="315" parent="303" name="admin_status">
+    <column id="317" parent="303" name="admin_status">
       <DataType>tinyint|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="316" parent="303" name="admin_role">
+    <column id="318" parent="303" name="admin_role">
       <DataType>tinyint|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <index id="317" parent="303" name="PRIMARY">
+    <index id="319" parent="303" name="PRIMARY">
       <ColNames>admin_user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="318" parent="303" name="idx_admin_name">
+    <index id="320" parent="303" name="idx_admin_name">
       <ColNames>admin_name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="319" parent="303" name="PRIMARY">
+    <key id="321" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="320" parent="303" name="idx_admin_name">
+    <key id="322" parent="303" name="idx_admin_name">
       <UnderlyingIndexName>idx_admin_name</UnderlyingIndexName>
     </key>
-    <column id="321" parent="304" name="black_id">
+    <column id="323" parent="304" name="black_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="322" parent="304" name="created_at">
+    <column id="324" parent="304" name="created_at">
       <DataType>datetime|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="323" parent="304" name="updated_at">
+    <column id="325" parent="304" name="updated_at">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="324" parent="304" name="deleted_at">
+    <column id="326" parent="304" name="deleted_at">
       <DataType>datetime|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="325" parent="304" name="user_id">
+    <column id="327" parent="304" name="user_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="326" parent="304" name="black_user_id">
+    <column id="328" parent="304" name="black_user_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="327" parent="304" name="start_time">
+    <column id="329" parent="304" name="start_time">
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="328" parent="304" name="end_time">
+    <column id="330" parent="304" name="end_time">
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="329" parent="304" name="black_type">
+    <column id="331" parent="304" name="black_type">
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
-    <index id="330" parent="304" name="PRIMARY">
+    <index id="332" parent="304" name="PRIMARY">
       <ColNames>black_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="331" parent="304" name="black_id">
+    <index id="333" parent="304" name="black_id">
       <ColNames>black_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="332" parent="304" name="idx_user_id">
+    <index id="334" parent="304" name="idx_user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="333" parent="304" name="idx_black_user_id">
+    <index id="335" parent="304" name="idx_black_user_id">
       <ColNames>black_user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="334" parent="304" name="idx_start_time">
+    <index id="336" parent="304" name="idx_start_time">
       <ColNames>start_time</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="335" parent="304" name="idx_end_time">
+    <index id="337" parent="304" name="idx_end_time">
       <ColNames>end_time</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="336" parent="304" name="idx_black_type">
+    <index id="338" parent="304" name="idx_black_type">
       <ColNames>black_type</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="337" parent="304" name="PRIMARY">
+    <key id="339" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="338" parent="304" name="black_id">
+    <key id="340" parent="304" name="black_id">
       <UnderlyingIndexName>black_id</UnderlyingIndexName>
     </key>
-    <column id="339" parent="305" name="invitation_id">
+    <column id="341" parent="305" name="helpCategory_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="340" parent="305" name="created_at">
+    <column id="342" parent="305" name="created_at">
       <DataType>datetime|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="341" parent="305" name="updated_at">
+    <column id="343" parent="305" name="updated_at">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="342" parent="305" name="deleted_at">
+    <column id="344" parent="305" name="deleted_at">
       <DataType>datetime|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="343" parent="305" name="inviter_id">
+    <column id="345" parent="305" name="category_status">
+      <DataType>tinyint|0s</DataType>
+      <DefaultExpression>1</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <index id="346" parent="305" name="PRIMARY">
+      <ColNames>helpCategory_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="347" parent="305" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="348" parent="306" name="helpCategoryTranslation_id">
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="349" parent="306" name="created_at">
+      <DataType>datetime|0s</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>2</Position>
+    </column>
+    <column id="350" parent="306" name="updated_at">
+      <DataType>datetime|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <column id="351" parent="306" name="deleted_at">
+      <DataType>datetime|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="352" parent="306" name="helpCategory_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="344" parent="305" name="invitee_id">
+    <column id="353" parent="306" name="language_code">
+      <DataType>varchar(256)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="354" parent="306" name="category_name">
+      <DataType>varchar(256)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <index id="355" parent="306" name="PRIMARY">
+      <ColNames>helpCategoryTranslation_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="356" parent="306" name="idx_helpCategory_id_language_id">
+      <ColNames>helpCategory_id
+language_code</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="357" parent="306" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="358" parent="306" name="idx_helpCategory_id_language_id">
+      <UnderlyingIndexName>idx_helpCategory_id_language_id</UnderlyingIndexName>
+    </key>
+    <column id="359" parent="307" name="invitation_id">
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="360" parent="307" name="created_at">
+      <DataType>datetime|0s</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>2</Position>
+    </column>
+    <column id="361" parent="307" name="updated_at">
+      <DataType>datetime|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <column id="362" parent="307" name="deleted_at">
+      <DataType>datetime|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="363" parent="307" name="inviter_id">
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="364" parent="307" name="invitee_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="345" parent="305" name="PRIMARY">
+    <index id="365" parent="307" name="PRIMARY">
       <ColNames>invitation_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="346" parent="305" name="invitation_id">
+    <index id="366" parent="307" name="invitation_id">
       <ColNames>invitation_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="347" parent="305" name="idx_inviter_id">
+    <index id="367" parent="307" name="idx_inviter_id">
       <ColNames>inviter_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="348" parent="305" name="idx_invitee_id">
+    <index id="368" parent="307" name="idx_invitee_id">
       <ColNames>invitee_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="349" parent="305" name="PRIMARY">
+    <key id="369" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="350" parent="305" name="invitation_id">
+    <key id="370" parent="307" name="invitation_id">
       <UnderlyingIndexName>invitation_id</UnderlyingIndexName>
     </key>
-    <column id="351" parent="306" name="invitation_tree_id">
+    <column id="371" parent="308" name="invitation_tree_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="352" parent="306" name="created_at">
+    <column id="372" parent="308" name="created_at">
       <DataType>datetime|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="353" parent="306" name="updated_at">
+    <column id="373" parent="308" name="updated_at">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="354" parent="306" name="deleted_at">
+    <column id="374" parent="308" name="deleted_at">
       <DataType>datetime|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="355" parent="306" name="user_id">
+    <column id="375" parent="308" name="user_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="356" parent="306" name="parent_id">
+    <column id="376" parent="308" name="parent_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="357" parent="306" name="depth">
+    <column id="377" parent="308" name="depth">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="358" parent="306" name="PRIMARY">
+    <index id="378" parent="308" name="PRIMARY">
       <ColNames>invitation_tree_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="359" parent="306" name="invitation_tree_id">
+    <index id="379" parent="308" name="invitation_tree_id">
       <ColNames>invitation_tree_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="360" parent="306" name="idx_user_id">
+    <index id="380" parent="308" name="idx_user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="361" parent="306" name="idx_parent_id">
+    <index id="381" parent="308" name="idx_parent_id">
       <ColNames>parent_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="362" parent="306" name="idx_depth">
+    <index id="382" parent="308" name="idx_depth">
       <ColNames>depth</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="363" parent="306" name="PRIMARY">
+    <key id="383" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="364" parent="306" name="invitation_tree_id">
+    <key id="384" parent="308" name="invitation_tree_id">
       <UnderlyingIndexName>invitation_tree_id</UnderlyingIndexName>
     </key>
-    <column id="365" parent="307" name="profile_id">
+    <column id="385" parent="309" name="profile_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="366" parent="307" name="created_at">
+    <column id="386" parent="309" name="created_at">
       <DataType>datetime|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="367" parent="307" name="updated_at">
+    <column id="387" parent="309" name="updated_at">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="368" parent="307" name="deleted_at">
+    <column id="388" parent="309" name="deleted_at">
       <DataType>datetime|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="369" parent="307" name="user_id">
+    <column id="389" parent="309" name="user_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="370" parent="307" name="twitter_name">
+    <column id="390" parent="309" name="twitter_name">
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="371" parent="307" name="user_name">
+    <column id="391" parent="309" name="user_name">
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="372" parent="307" name="avatar">
+    <column id="392" parent="309" name="avatar">
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="373" parent="307" name="is_new">
+    <column id="393" parent="309" name="is_new">
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
-    <index id="374" parent="307" name="PRIMARY">
+    <index id="394" parent="309" name="PRIMARY">
       <ColNames>profile_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="375" parent="307" name="profile_id">
+    <index id="395" parent="309" name="profile_id">
       <ColNames>profile_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="376" parent="307" name="idx_user_id">
+    <index id="396" parent="309" name="idx_user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="377" parent="307" name="idx_twitter_name">
+    <index id="397" parent="309" name="idx_twitter_name">
       <ColNames>twitter_name</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="378" parent="307" name="idx_user_name">
+    <index id="398" parent="309" name="idx_user_name">
       <ColNames>user_name</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="379" parent="307" name="idx_is_new">
+    <index id="399" parent="309" name="idx_is_new">
       <ColNames>is_new</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="380" parent="307" name="PRIMARY">
+    <key id="400" parent="309" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="381" parent="307" name="profile_id">
+    <key id="401" parent="309" name="profile_id">
       <UnderlyingIndexName>profile_id</UnderlyingIndexName>
     </key>
-    <column id="382" parent="308" name="user_id">
+    <column id="402" parent="310" name="user_id">
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="383" parent="308" name="created_at">
+    <column id="403" parent="310" name="created_at">
       <DataType>datetime|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="384" parent="308" name="updated_at">
+    <column id="404" parent="310" name="updated_at">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="385" parent="308" name="deleted_at">
+    <column id="405" parent="310" name="deleted_at">
       <DataType>datetime|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="386" parent="308" name="twitter_id">
+    <column id="406" parent="310" name="twitter_id">
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <index id="387" parent="308" name="PRIMARY">
+    <index id="407" parent="310" name="PRIMARY">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="388" parent="308" name="idx_twitter_id">
+    <index id="408" parent="310" name="idx_twitter_id">
       <ColNames>twitter_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="389" parent="308" name="idx_users_deleted_at">
+    <index id="409" parent="310" name="idx_users_deleted_at">
       <ColNames>deleted_at</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="390" parent="308" name="PRIMARY">
+    <key id="410" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="391" parent="308" name="idx_twitter_id">
+    <key id="411" parent="310" name="idx_twitter_id">
       <UnderlyingIndexName>idx_twitter_id</UnderlyingIndexName>
     </key>
   </database-model>
