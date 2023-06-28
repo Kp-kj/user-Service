@@ -54,6 +54,9 @@ set ETCDCTL_API=3
 - windows下启动 etcd
 .\etcdctl get user.rpc --prefix
 
+
+
+
 ```
 注： 带缓存创建mysql的命令是 
 goctl model mysql ddl --src user.sql --dir ./cache -cache
