@@ -1,9 +1,6 @@
 name: Sync Develop to Release
 
 on:
-  push:
-      branches:
-        - release
   schedule:
     - cron: "0 4 * * *"
   workflow_dispatch:  # 手动触发器
@@ -24,8 +21,22 @@ jobs:
       - name: Fetch All Branches
         run: git fetch --all
 
-      - name: Sync Branches
+      - name: Create and Checkout Local Release Branch
+        run: |
+          git branch release origin/release
+          git checkout release
+
+      - name: Pull Latest Changes for Release Branch
+        run: git pull origin release
+
+      - name: Merge Develop into Release Branch
         run: |
           git merge --allow-unrelated-histories -X theirs develop
+
+      - name: Commit Merge Result
+        run: |
           git commit -am "Merge develop into release"
+
+      - name: Push Release Branch to Remote Repository
+        run: |
           git push --force origin release
