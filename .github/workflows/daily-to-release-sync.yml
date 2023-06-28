@@ -18,20 +18,12 @@ jobs:
           git config user.email "edchiris@gmail.com"
           git config user.name "Ed"
 
-      - name: Fetch All Branches
-        run: git fetch --all
-
-      - name: Create and Checkout Local Release Branch
-        run: |
-          git branch release origin/release
-          git checkout release
-
-      - name: Pull Latest Changes for Release Branch
-        run: git pull origin release
+      - name: Fetch Develop Branch
+        run: git fetch origin develop
 
       - name: Merge Develop into Release Branch
         run: |
-          git merge --allow-unrelated-histories -X theirs develop
+          git merge --allow-unrelated-histories -X theirs origin/develop
 
       - name: Commit Merge Result
         run: |
