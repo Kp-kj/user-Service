@@ -26,9 +26,6 @@ jobs:
 
       - name: Sync Branches
         run: |
-          git checkout release
-          git fetch origin release
-          git reset --hard origin/release
           git merge --allow-unrelated-histories -X theirs develop
           git commit -am "Merge develop into release"
           git push --force origin release
