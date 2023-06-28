@@ -23,7 +23,6 @@ jobs:
 
       - name: Create and Checkout Local Release Branch
         run: |
-          git branch release origin/release
           git checkout release
 
       - name: Pull Latest Changes for Release Branch
