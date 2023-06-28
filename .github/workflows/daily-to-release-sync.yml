@@ -23,8 +23,8 @@ jobs:
 
       - name: Sync Branches
         run: |
-          git checkout release
+         git checkout release
           git pull origin release
           git merge --allow-unrelated-histories -X theirs develop
           git commit -am "Merge develop into release"
-          git push origin release
+          git push --force origin release
