@@ -3,6 +3,7 @@ name: Sync Develop to Release
 on:
   schedule:
     - cron: "0 4 * * *"
+  workflow_dispatch:  # 手动触发器
 
 jobs:
   sync:
@@ -17,8 +18,7 @@ jobs:
 
       - name: Sync Branches
         run: |
-          git checkout develop
-          git pull origin develop
           git checkout release
-          git merge develop
+          git pull origin release
+          git merge --allow-unrelated-histories develop
           git push origin release
