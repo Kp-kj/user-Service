@@ -121,3 +121,79 @@ func (s *UserServer) GetHelpCategoryTranslations(ctx context.Context, in *user.G
 	l := logic.NewGetHelpCategoryTranslationsLogic(ctx, s.svcCtx)
 	return l.GetHelpCategoryTranslations(in)
 }
+
+func (s *UserServer) EditHelpCategoryTranslation(ctx context.Context, in *user.EditHelpCategoryTranslationRequest) (*user.EditHelpCategoryTranslationResponse, error) {
+	l := logic.NewEditHelpCategoryTranslationLogic(ctx, s.svcCtx)
+	return l.EditHelpCategoryTranslation(in)
+}
+
+func (s *UserServer) GetHelpDocuments(ctx context.Context, in *user.GetHelpDocumentsRequest) (*user.GetHelpDocumentsResponse, error) {
+	l := logic.NewGetHelpDocumentsLogic(ctx, s.svcCtx)
+	return l.GetHelpDocuments(in)
+}
+
+func (s *UserServer) CreateHelpDocument(ctx context.Context, in *user.CreateHelpDocumentRequest) (*user.CreateHelpDocumentResponse, error) {
+	l := logic.NewCreateHelpDocumentLogic(ctx, s.svcCtx)
+	return l.CreateHelpDocument(in)
+}
+
+func (s *UserServer) DeleteHelpDocument(ctx context.Context, in *user.DeleteHelpDocumentRequest) (*user.DeleteHelpDocumentResponse, error) {
+	l := logic.NewDeleteHelpDocumentLogic(ctx, s.svcCtx)
+	return l.DeleteHelpDocument(in)
+}
+
+func (s *UserServer) EditHelpDocument(ctx context.Context, in *user.EditHelpDocumentRequest) (*user.EditHelpDocumentResponse, error) {
+	l := logic.NewEditHelpDocumentLogic(ctx, s.svcCtx)
+	return l.EditHelpDocument(in)
+}
+
+func (s *UserServer) CreateHelpDocumentTranslation(ctx context.Context, in *user.CreateHelpDocumentTranslationRequest) (*user.CreateHelpDocumentTranslationResponse, error) {
+	l := logic.NewCreateHelpDocumentTranslationLogic(ctx, s.svcCtx)
+	return l.CreateHelpDocumentTranslation(in)
+}
+
+func (s *UserServer) DeleteHelpDocumentTranslation(ctx context.Context, in *user.DeleteHelpDocumentTranslationRequest) (*user.DeleteHelpDocumentTranslationResponse, error) {
+	l := logic.NewDeleteHelpDocumentTranslationLogic(ctx, s.svcCtx)
+	return l.DeleteHelpDocumentTranslation(in)
+}
+
+func (s *UserServer) GetHelpDocumentTranslations(ctx context.Context, in *user.GetHelpDocumentTranslationsRequest) (*user.GetHelpDocumentTranslationsResponse, error) {
+	l := logic.NewGetHelpDocumentTranslationsLogic(ctx, s.svcCtx)
+	return l.GetHelpDocumentTranslations(in)
+}
+
+func (s *UserServer) EditHelpDocumentTranslation(ctx context.Context, in *user.EditHelpDocumentTranslationRequest) (*user.EditHelpDocumentTranslationResponse, error) {
+	l := logic.NewEditHelpDocumentTranslationLogic(ctx, s.svcCtx)
+	return l.EditHelpDocumentTranslation(in)
+}
+
+func (s *UserServer) CreateSystemNotification(ctx context.Context, in *user.CreateSystemNotificationRequest) (*user.CreateSystemNotificationResponse, error) {
+	l := logic.NewCreateSystemNotificationLogic(ctx, s.svcCtx)
+	return l.CreateSystemNotification(in)
+}
+
+func (s *UserServer) EditSystemNotification(ctx context.Context, in *user.EditSystemNotificationRequest) (*user.EditSystemNotificationResponse, error) {
+	l := logic.NewEditSystemNotificationLogic(ctx, s.svcCtx)
+	return l.EditSystemNotification(in)
+}
+
+func (s *UserServer) GetSystemNotifications(ctx context.Context, in *user.GetSystemNotificationsRequest) (*user.GetSystemNotificationsResponse, error) {
+	l := logic.NewGetSystemNotificationsLogic(ctx, s.svcCtx)
+	return l.GetSystemNotifications(in)
+}
+
+func (s *UserServer) QuerySystemNotification(ctx context.Context, in *user.QuerySystemNotificationRequest) (*user.QuerySystemNotificationResponse, error) {
+	l := logic.NewQuerySystemNotificationLogic(ctx, s.svcCtx)
+	return l.QuerySystemNotification(in)
+}
+
+// recordNotice 通知记录
+func (s *UserServer) CreateNotice(ctx context.Context, in *user.CreateNoticeRequest) (*user.CreateNoticeResponse, error) {
+	l := logic.NewCreateNoticeLogic(ctx, s.svcCtx)
+	return l.CreateNotice(in)
+}
+
+func (s *UserServer) RecordNotice(ctx context.Context, in *user.RecordNoticeRequest) (*user.RecordNoticeResponse, error) {
+	l := logic.NewRecordNoticeLogic(ctx, s.svcCtx)
+	return l.RecordNotice(in)
+}

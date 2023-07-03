@@ -225,6 +225,234 @@ message GetHelpCategoryTranslationsResponse {
   string  categoryName = 3;  //分类名称
 }
 
+// 获取消息通知
+message  GetNotificationsRequest {
+  string  noticeTime = 1;   //通知时间
+  int64  noticeNumber = 2; // 消息数量
+  int64  noticeType = 3; // 消息类型 0:系统通知 1:用户通知
+}
+
+message GetNotificationsResponse {
+  repeated Notification notifications = 1;  //通知
+}
+
+message  Notification{
+  string  noticeTitle = 1;   //通知标题
+  string  noticeContent = 2; // 通知内容
+  string  noticeTime = 3; // 通知时间
+  int64  noticeType = 4; // 消息类型 是否已读 0:未读 1:已读
+  string  systemNoticeId = 5; // 系统通知id
+}
+
+
+// 新建帮助文档
+message CreateHelpDocumentRequest {
+  int64  helpCategoryId = 1;  //帮助分类id
+  int64  documentStatus = 3;  //文档状态 # 0:上架 1:下架
+}
+
+message CreateHelpDocumentResponse {
+  bool is_success = 1;  //是否成功
+}
+
+
+// 删除帮助文档
+message DeleteHelpDocumentRequest {
+  int64  helpDocumentId = 1;  //帮助文档id
+}
+
+message DeleteHelpDocumentResponse {
+  bool is_success = 1;  //是否成功
+}
+
+// 编辑帮助文档
+message EditHelpDocumentRequest {
+  int64  helpDocumentId = 1;  //帮助文档id
+  int64  documentStatus = 2;  //文档状态 # 0:上架 1:下架
+}
+
+message EditHelpDocumentResponse {
+  bool is_success = 1;  //是否成功
+}
+
+
+// 新建帮助文档翻译
+message CreateHelpDocumentTranslationRequest {
+  int64  helpDocumentId = 1;  //帮助文档id
+  string  language = 2;  //语言
+  string  documentTitle = 3;  //文档标题
+  string  documentContent = 4;  //文档内容
+}
+
+message CreateHelpDocumentTranslationResponse {
+  bool is_success = 1;  //是否成功
+}
+
+// 删除帮助文档翻译
+message DeleteHelpDocumentTranslationRequest {
+  int64  helpDocumentId = 1;  //帮助文档id
+  string  language = 2;  //语言
+}
+
+message DeleteHelpDocumentTranslationResponse {
+  bool is_success = 1;  //是否成功
+}
+
+// 获取帮助文档翻译
+message GetHelpDocumentTranslationsRequest {
+  int64  helpDocumentId = 1;  //帮助文档id
+  string  language = 2;  //语言
+}
+
+message GetHelpDocumentTranslationsResponse {
+  int64  helpDocumentId = 1;  //帮助文档id
+  string  language = 2;  //语言
+  string  documentTitle = 3;  //文档标题
+  string  documentContent = 4;  //文档内容
+}
+
+// 获取帮助文档
+message GetHelpDocumentsRequest {
+  int64  helpCategoryId = 1;  //帮助分类id
+  int64  documentStatus = 2;  //文档状态 # 0:上架 1:下架
+}
+
+message GetHelpDocumentsResponse {
+  repeated HelpDocument helpDocuments = 1;  //帮助文档
+}
+
+message HelpDocument {
+  int64  helpDocumentId = 1;  //帮助文档id
+  int64  helpCategoryId = 2;  //帮助分类id
+  int64  documentStatus = 3;  //文档状态 # 0:上架 1:下架
+}
+
+// 编辑帮助文档翻译
+message EditHelpDocumentTranslationRequest {
+  int64  helpDocumentId = 1;  //帮助文档id
+  string  language = 2;  //语言
+  string  documentTitle = 3;  //文档标题
+  string  documentContent = 4;  //文档内容
+}
+
+message EditHelpDocumentTranslationResponse {
+  bool is_success = 1;  //是否成功
+}
+
+// 编辑帮助分类翻译
+message  EditHelpCategoryTranslationRequest {
+  int64  helpCategoryId = 1;  //帮助分类id
+  string  language = 2;  //语言
+  string  categoryName = 3;  //分类名称
+}
+
+message EditHelpCategoryTranslationResponse {
+  bool is_success = 1;  //是否成功
+}
+
+//CreateSystemNotificationRequest
+message CreateSystemNotificationRequest {
+  string  noticeTitle = 1;   //通知标题
+  string  noticeContent = 2; // 通知内容
+  int64  noticeCategory = 3; // 通知类别 0：手动通知 1：自动通知
+  int64  notice_status = 4; // 通知状态   0:待发布 1：已发布 2：已下架
+  int64  notice_start_time = 5; // 自动通知时间
+}
+
+message CreateSystemNotificationResponse {
+  bool is_success = 1;  //是否成功
+  int64  systemNoticeId = 2; // 系统通知id
+}
+
+//EditSystemNotificationRequest
+message EditSystemNotificationRequest {
+  string  noticeTitle = 1;   //通知标题
+  string  noticeContent = 2; // 通知内容
+  int64  noticeCategory = 3; // 通知类别 0：手动通知 1：自动通知
+  int64  notice_status = 4; // 通知状态   0:待发布 1：已发布 2：已下架
+  int64  notice_start_time = 5; // 自动通知时间
+  int64  systemNoticeId = 6; // 系统通知id
+}
+
+message EditSystemNotificationResponse {
+  bool is_success = 1;  //是否成功
+}
+
+//GetSystemNotificationsRequest
+message GetSystemNotificationsRequest {
+  int64  noticeCategory = 1; // 通知类别 0：手动通知 1：自动通知 2：全部
+  int64  notice_status = 2; // 通知状态   0:待发布 1：已发布 2：已下架
+}
+
+message SystemNotification {
+  string  noticeTitle = 1;   //通知标题
+  string  noticeContent = 2; // 通知内容
+  int64  noticeCategory = 3; // 通知类别 0：手动通知 1：自动通知
+  int64  notice_status = 4; // 通知状态   0:待发布 1：已发布 2：已下架
+  int64  notice_start_time = 5; // 自动通知时间
+  int64  systemNoticeId = 6; // 系统通知id
+}
+
+
+message GetSystemNotificationsResponse {
+  repeated SystemNotification systemNotifications = 1;  //系统通知
+}
+
+
+//QuerySystemNotificationRequest
+message QuerySystemNotificationRequest {
+  int64  systemNoticeId = 1; // 系统通知id
+}
+
+message QuerySystemNotificationResponse {
+  string  noticeTitle = 1;   //通知标题
+  string  noticeContent = 2; // 通知内容
+  int64  noticeCategory = 3; // 通知类别 0：手动通知 1：自动通知
+  int64  notice_status = 4; // 通知状态   0:待发布 1：已发布 2：已下架
+  int64  notice_start_time = 5; // 自动通知时间
+  int64  systemNoticeId = 6; // 系统通知id
+}
+
+
+//CreateNoticeRequest
+message CreateNoticeRequest{
+  int64 user_id = 1; // 用户id
+  int64 systemNotice_id = 2; // 系统通知id
+  int64 userNotice_id= 3; // 用户通知id
+  int64 recordNotice_category = 4; // 通知类别 0：系统通知 1：用户通知
+  int64 recordNotice_status = 5; // 通知状态   0:未读 1：已读
+}
+
+message CreateNoticeResponse{
+  bool is_success = 1;  //是否成功
+}
+
+//RecordNoticeRequest
+message RecordNoticeRequest{
+  int64 user_id = 1; // 用户id
+  int64 recordNotice_category = 2; // 通知类别 0：系统通知 1：用户通知
+  int64 recordNotice_status = 3; // 通知状态   0:未读 1：已读
+  string  lastNoticeId = 4; // 上条通知id 用来刷新
+  int64  limit = 5; // 条数
+  int64  sort = 6; // 排序 0：正序 1：倒序
+}
+
+
+// Notice
+message Notice {
+  int64 user_id = 1; // 用户id
+  int64 systemNotice_id = 2; // 系统通知id
+  int64 userNotice_id= 3; // 用户通知id
+  int64 recordNotice_category = 4; // 通知类别 0：系统通知 1：用户通知
+  int64 recordNotice_status = 5; // 通知状态   0:未读 1：已读
+  int64  createTime = 6; // 创建时间
+  int64  updateTime = 7; // 更新时间
+}
+
+
+message RecordNoticeResponse{
+  repeated Notice notice = 1;  //通知
+}
 
 
 service User {
@@ -236,29 +464,53 @@ service User {
   rpc AddUserInfo(AddUserInfoRequest) returns(AddUserInfoResponse);  // 添加用户信息
   rpc QueryUser(QueryUserRequest) returns(QueryUserResponse);  // 查询用户信息
 
-
   rpc AddAdmin(AddAdminRequest) returns(AddAdminResponse);  // 添加管理员
   rpc AdminLogin(AdminLoginRequest) returns(AdminLoginResponse);  // 管理员登录
   rpc RemoveAdmin(RemoveAdminRequest) returns(RemoveAdminResponse);  // 删除管理员
-
 
   rpc AddBlackList(AddBlackListRequest) returns(AddBlackListResponse);  // 用户加入黑名单
   rpc QueryBlackList(QueryBlackListRequest) returns(QueryBlackListResponse);  // 查询黑名单
   rpc RemoveBlackList(RemoveBlackListRequest) returns(RemoveBlackListResponse);  // 用户移除黑名单
 
-
-
   rpc GetHelpCategories(GetHelpCategoriesRequest) returns(GetHelpCategoriesResponse);  // 获取上架的帮助分类
   rpc CreateHelpCategory(CreateHelpCategoryRequest) returns(CreateHelpCategoryResponse);  // 新建帮助分类
   rpc DeleteHelpCategory(DeleteHelpCategoryRequest) returns(DeleteHelpCategoryResponse);  // 删除帮助分类
   rpc EditHelpCategory(EditHelpCategoryRequest) returns(EditHelpCategoryResponse);  // 编辑帮助分类
+
   rpc CreateHelpCategoryTranslation(CreateHelpCategoryTranslationRequest) returns(CreateHelpCategoryTranslationResponse);  // 新建帮助分类翻译
   rpc DeleteHelpCategoryTranslation(DeleteHelpCategoryTranslationRequest) returns(DeleteHelpCategoryTranslationResponse);  // 删除帮助分类翻译
   rpc GetHelpCategoryTranslations(GetHelpCategoryTranslationsRequest) returns(GetHelpCategoryTranslationsResponse);  // 获取帮助分类翻译
+  rpc EditHelpCategoryTranslation(EditHelpCategoryTranslationRequest) returns(EditHelpCategoryTranslationResponse);  // 编辑帮助分类翻译
+
+  rpc GetHelpDocuments(GetHelpDocumentsRequest) returns(GetHelpDocumentsResponse);  // 获取帮助文档
+  rpc CreateHelpDocument(CreateHelpDocumentRequest) returns(CreateHelpDocumentResponse);  // 新建帮助文档
+  rpc DeleteHelpDocument(DeleteHelpDocumentRequest) returns(DeleteHelpDocumentResponse);  // 删除帮助文档
+  rpc EditHelpDocument(EditHelpDocumentRequest) returns(EditHelpDocumentResponse);  // 编辑帮助文档
+
+  rpc CreateHelpDocumentTranslation(CreateHelpDocumentTranslationRequest) returns(CreateHelpDocumentTranslationResponse);  // 新建帮助文档翻译
+  rpc DeleteHelpDocumentTranslation(DeleteHelpDocumentTranslationRequest) returns(DeleteHelpDocumentTranslationResponse);  // 删除帮助文档翻译
+  rpc GetHelpDocumentTranslations(GetHelpDocumentTranslationsRequest) returns(GetHelpDocumentTranslationsResponse);  // 获取帮助文档翻译
+  rpc EditHelpDocumentTranslation(EditHelpDocumentTranslationRequest) returns(EditHelpDocumentTranslationResponse);  // 编辑帮助文档翻译
 
 
+  rpc CreateSystemNotification(CreateSystemNotificationRequest) returns(CreateSystemNotificationResponse); // 新增系统消息通知
+  rpc EditSystemNotification(EditSystemNotificationRequest) returns(EditSystemNotificationResponse); // 编辑系统消息通知
+  rpc GetSystemNotifications(GetSystemNotificationsRequest) returns(GetSystemNotificationsResponse); // 获取系统消息通知列表
+  rpc QuerySystemNotification(QuerySystemNotificationRequest) returns(QuerySystemNotificationResponse); // 查询系统消息通知
+
+  //recordNotice 通知记录
+  rpc CreateNotice(CreateNoticeRequest) returns(CreateNoticeResponse); // 新增通知
+  rpc RecordNotice(RecordNoticeRequest) returns(RecordNoticeResponse); // 通知记录列表
+  //rpc EditRecordNotice(EditRecordNoticeRequest) returns(EditRecordNoticeResponse); // 编辑通知记录是否已读
+  //rpc DeleteRecordNotice(DeleteRecordNoticeRequest) returns(DeleteRecordNoticeResponse); // 删除通知记录
 
 
+  // 新增用户消息通知
+  //rpc CreateNotification(CreateNotificationRequest) returns(CreateNotificationResponse); // 新增消息通知
+  // 编辑用户消息通知
+  //rpc EditNotification(EditNotificationRequest) returns(EditNotificationResponse); // 编辑消息通知
+  // 获取用户消息通知
+  //rpc GetUserNotifications(GetUserNotificationsRequest) returns(GetUserNotificationsResponse); // 获取用户消息通知
 
 
 }

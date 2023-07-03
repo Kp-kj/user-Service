@@ -30,6 +30,7 @@ type (
 		Update(ctx context.Context, data *HelpCategoryTranslation) error
 		Delete(ctx context.Context, helpCategoryTranslationId int64) error
 		DeleteByHelpCategoryIdLanguageCode(ctx context.Context, helpCategoryId int64, languageCode string) error
+		EditHelpCategoryTranslation(ctx context.Context, helpCategoryId int64, languageCode string, categoryName string) error
 	}
 
 	defaultHelpCategoryTranslationModel struct {
@@ -98,6 +99,13 @@ func (m *defaultHelpCategoryTranslationModel) FindOneByHelpCategoryIdLanguageCod
 	default:
 		return nil, err
 	}
+}
+
+//EditHelpCategoryTranslation
+func (m *defaultHelpCategoryTranslationModel) EditHelpCategoryTranslation(ctx context.Context, helpCategoryId int64, languageCode string, categoryName string) error {
+	query := fmt.Sprintf("update %s set `category_name` = ? where `helpCategory_id` = ? and `language_code` = ?", m.table)
+	_, err := m.conn.ExecCtx(ctx, query, categoryName, helpCategoryId, languageCode)
+	return err
 }
 
 func (m *defaultHelpCategoryTranslationModel) Insert(ctx context.Context, data *HelpCategoryTranslation) (sql.Result, error) {
