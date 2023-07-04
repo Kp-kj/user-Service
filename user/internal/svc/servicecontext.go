@@ -21,6 +21,7 @@ type ServiceContext struct {
 	RecordNotice            model.RecordNoticeModel            //通知记录
 	SystemNotice            model.SystemNoticeModel            //系统通知
 	UserNotice              model.UserNoticeModel              //用户通知
+
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {

@@ -28,7 +28,7 @@ type (
 		FindOne(ctx context.Context, recordNoticeId int64) (*RecordNotice, error)
 		Update(ctx context.Context, data *RecordNotice) error
 		Delete(ctx context.Context, recordNoticeId int64) error
-
+		FindOneBySystemNoticeIdOrUserNoticeId(ctx context.Context, NoticeId  int64) (*RecordNotice, error)
 		FindOneByUserIdAndRecordNoticeCategoryAndRecordNoticeStatusOrderLimitAndSort(ctx context.Context, userId int64, recordNoticeCategory int64, recordNoticeStatus int64, limit int64, sort int64) ([]*RecordNotice, error)
 		FindByUserIdAndRecordNoticeCategoryAndRecordNoticeStatusOrderLimitAndSortWithLastNoticeID(ctx context.Context, userId int64, recordNoticeCategory int64, recordNoticeStatus int64, lastNoticeId string, limit int64, sort int64) ([]*RecordNotice, error)
 	}
@@ -114,6 +114,22 @@ func (m *defaultRecordNoticeModel) FindOneByUserIdAndRecordNoticeCategoryAndReco
 	switch err {
 	case nil:
 		return list, nil
+	case sqlc.ErrNotFound:
+		return nil, ErrNotFound
+	default:
+		return nil, err
+	}
+}
+
+//FindOneBySystemNoticeIdOrUserNoticeId(ctx context.Context, NoticeId  int64) (*RecordNotice, error)
+func (m *defaultRecordNoticeModel) FindOneBySystemNoticeIdOrUserNoticeId(ctx context.Context, NoticeId  int64) (*RecordNotice, error) {
+	//查看systemNoticeId或userNoticeId是否有和NoticeId相同的
+	query := fmt.Sprintf("select %s from %s where `systemNotice_id` = ? or `userNotice_id` = ? limit 1", recordNoticeRows, m.table)
+	var resp RecordNotice
+	err := m.conn.QueryRowCtx(ctx, &resp, query, NoticeId, NoticeId)
+	switch err {
+	case nil:
+		return &resp, nil
 	case sqlc.ErrNotFound:
 		return nil, ErrNotFound
 	default:
