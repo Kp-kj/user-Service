@@ -29,6 +29,7 @@ type (
 		FindOneByTwitterId(ctx context.Context, twitterId string) (*User, error)
 		Update(ctx context.Context, data *User) error
 		Delete(ctx context.Context, userId int64) error
+		Count(ctx context.Context) (int64, error)
 	}
 
 	defaultUserModel struct {
@@ -56,6 +57,14 @@ func (m *defaultUserModel) Delete(ctx context.Context, userId int64) error {
 	query := fmt.Sprintf("delete from %s where `user_id` = ?", m.table)
 	_, err := m.conn.ExecCtx(ctx, query, userId)
 	return err
+}
+
+//Count
+func (m *defaultUserModel) Count(ctx context.Context) (int64, error) {
+	query := fmt.Sprintf("select count(*) from %s", m.table)
+	var count int64
+	err := m.conn.QueryRowCtx(ctx, &count, query)
+	return count, err
 }
 
 func (m *defaultUserModel) FindOne(ctx context.Context, userId int64) (*User, error) {

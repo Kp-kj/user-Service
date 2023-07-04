@@ -27,6 +27,16 @@ func (s *UserServer) Ping(ctx context.Context, in *user.Request) (*user.Response
 	return l.Ping(in)
 }
 
+func (s *UserServer) RegisterCount(ctx context.Context, in *user.Request) (*user.RegisterCountResponse, error) {
+	l := logic.NewRegisterCountLogic(ctx, s.svcCtx)
+	return l.RegisterCount(in)
+}
+
+func (s *UserServer) OnlineCount(ctx context.Context, in *user.Request) (*user.OnlineCountResponse, error) {
+	l := logic.NewOnlineCountLogic(ctx, s.svcCtx)
+	return l.OnlineCount(in)
+}
+
 func (s *UserServer) CheckTwitterId(ctx context.Context, in *user.CheckTwitterIdRequest) (*user.CheckTwitterIdResponse, error) {
 	l := logic.NewCheckTwitterIdLogic(ctx, s.svcCtx)
 	return l.CheckTwitterId(in)
@@ -196,4 +206,9 @@ func (s *UserServer) CreateNotice(ctx context.Context, in *user.CreateNoticeRequ
 func (s *UserServer) RecordNotice(ctx context.Context, in *user.RecordNoticeRequest) (*user.RecordNoticeResponse, error) {
 	l := logic.NewRecordNoticeLogic(ctx, s.svcCtx)
 	return l.RecordNotice(in)
+}
+
+func (s *UserServer) QueryRecordNotice(ctx context.Context, in *user.QueryRecordNoticeRequest) (*user.QueryRecordNoticeResponse, error) {
+	l := logic.NewQueryRecordNoticeLogic(ctx, s.svcCtx)
+	return l.QueryRecordNotice(in)
 }

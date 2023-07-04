@@ -75,14 +75,18 @@ type (
 	HelpDocument                          = user.HelpDocument
 	Notice                                = user.Notice
 	Notification                          = user.Notification
+	OnlineCountResponse                   = user.OnlineCountResponse
 	QueryBlackListRequest                 = user.QueryBlackListRequest
 	QueryBlackListResponse                = user.QueryBlackListResponse
+	QueryRecordNoticeRequest              = user.QueryRecordNoticeRequest
+	QueryRecordNoticeResponse             = user.QueryRecordNoticeResponse
 	QuerySystemNotificationRequest        = user.QuerySystemNotificationRequest
 	QuerySystemNotificationResponse       = user.QuerySystemNotificationResponse
 	QueryUserRequest                      = user.QueryUserRequest
 	QueryUserResponse                     = user.QueryUserResponse
 	RecordNoticeRequest                   = user.RecordNoticeRequest
 	RecordNoticeResponse                  = user.RecordNoticeResponse
+	RegisterCountResponse                 = user.RegisterCountResponse
 	RemoveAdminRequest                    = user.RemoveAdminRequest
 	RemoveAdminResponse                   = user.RemoveAdminResponse
 	RemoveBlackListRequest                = user.RemoveBlackListRequest
@@ -93,6 +97,8 @@ type (
 
 	User interface {
 		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+		RegisterCount(ctx context.Context, in *Request, opts ...grpc.CallOption) (*RegisterCountResponse, error)
+		OnlineCount(ctx context.Context, in *Request, opts ...grpc.CallOption) (*OnlineCountResponse, error)
 		CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequest, opts ...grpc.CallOption) (*CheckTwitterIdResponse, error)
 		CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 		CreateInvite(ctx context.Context, in *CreateInviteRequest, opts ...grpc.CallOption) (*CreateInviteResponse, error)
@@ -128,6 +134,7 @@ type (
 		// recordNotice 通知记录
 		CreateNotice(ctx context.Context, in *CreateNoticeRequest, opts ...grpc.CallOption) (*CreateNoticeResponse, error)
 		RecordNotice(ctx context.Context, in *RecordNoticeRequest, opts ...grpc.CallOption) (*RecordNoticeResponse, error)
+		QueryRecordNotice(ctx context.Context, in *QueryRecordNoticeRequest, opts ...grpc.CallOption) (*QueryRecordNoticeResponse, error)
 	}
 
 	defaultUser struct {
@@ -144,6 +151,16 @@ func NewUser(cli zrpc.Client) User {
 func (m *defaultUser) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.Ping(ctx, in, opts...)
+}
+
+func (m *defaultUser) RegisterCount(ctx context.Context, in *Request, opts ...grpc.CallOption) (*RegisterCountResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.RegisterCount(ctx, in, opts...)
+}
+
+func (m *defaultUser) OnlineCount(ctx context.Context, in *Request, opts ...grpc.CallOption) (*OnlineCountResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.OnlineCount(ctx, in, opts...)
 }
 
 func (m *defaultUser) CheckTwitterId(ctx context.Context, in *CheckTwitterIdRequest, opts ...grpc.CallOption) (*CheckTwitterIdResponse, error) {
@@ -315,4 +332,9 @@ func (m *defaultUser) CreateNotice(ctx context.Context, in *CreateNoticeRequest,
 func (m *defaultUser) RecordNotice(ctx context.Context, in *RecordNoticeRequest, opts ...grpc.CallOption) (*RecordNoticeResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.RecordNotice(ctx, in, opts...)
+}
+
+func (m *defaultUser) QueryRecordNotice(ctx context.Context, in *QueryRecordNoticeRequest, opts ...grpc.CallOption) (*QueryRecordNoticeResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.QueryRecordNotice(ctx, in, opts...)
 }
