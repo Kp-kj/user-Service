@@ -28,6 +28,7 @@ const (
 	User_CheckTodayInvite_FullMethodName              = "/user.User/CheckTodayInvite"
 	User_AddUserInfo_FullMethodName                   = "/user.User/AddUserInfo"
 	User_QueryUser_FullMethodName                     = "/user.User/QueryUser"
+	User_GetUserList_FullMethodName                   = "/user.User/GetUserList"
 	User_AddAdmin_FullMethodName                      = "/user.User/AddAdmin"
 	User_AdminLogin_FullMethodName                    = "/user.User/AdminLogin"
 	User_RemoveAdmin_FullMethodName                   = "/user.User/RemoveAdmin"
@@ -57,6 +58,8 @@ const (
 	User_CreateNotice_FullMethodName                  = "/user.User/CreateNotice"
 	User_RecordNotice_FullMethodName                  = "/user.User/RecordNotice"
 	User_QueryRecordNotice_FullMethodName             = "/user.User/QueryRecordNotice"
+	User_CreateNotification_FullMethodName            = "/user.User/CreateNotification"
+	User_GetUserNotifications_FullMethodName          = "/user.User/GetUserNotifications"
 )
 
 // UserClient is the client API for User service.
@@ -72,6 +75,7 @@ type UserClient interface {
 	CheckTodayInvite(ctx context.Context, in *CheckTodayInviteRequest, opts ...grpc.CallOption) (*CheckTodayInviteResponse, error)
 	AddUserInfo(ctx context.Context, in *AddUserInfoRequest, opts ...grpc.CallOption) (*AddUserInfoResponse, error)
 	QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error)
+	GetUserList(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserListResponse, error)
 	AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error)
 	AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
 	RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error)
@@ -102,6 +106,10 @@ type UserClient interface {
 	CreateNotice(ctx context.Context, in *CreateNoticeRequest, opts ...grpc.CallOption) (*CreateNoticeResponse, error)
 	RecordNotice(ctx context.Context, in *RecordNoticeRequest, opts ...grpc.CallOption) (*RecordNoticeResponse, error)
 	QueryRecordNotice(ctx context.Context, in *QueryRecordNoticeRequest, opts ...grpc.CallOption) (*QueryRecordNoticeResponse, error)
+	// 新增用户消息通知
+	CreateNotification(ctx context.Context, in *CreateNotificationRequest, opts ...grpc.CallOption) (*CreateNotificationResponse, error)
+	// 获取用户消息通知
+	GetUserNotifications(ctx context.Context, in *GetUserNotificationsRequest, opts ...grpc.CallOption) (*GetUserNotificationsResponse, error)
 }
 
 type userClient struct {
@@ -187,6 +195,15 @@ func (c *userClient) AddUserInfo(ctx context.Context, in *AddUserInfoRequest, op
 func (c *userClient) QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error) {
 	out := new(QueryUserResponse)
 	err := c.cc.Invoke(ctx, User_QueryUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) GetUserList(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserListResponse, error) {
+	out := new(UserListResponse)
+	err := c.cc.Invoke(ctx, User_GetUserList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -454,6 +471,24 @@ func (c *userClient) QueryRecordNotice(ctx context.Context, in *QueryRecordNotic
 	return out, nil
 }
 
+func (c *userClient) CreateNotification(ctx context.Context, in *CreateNotificationRequest, opts ...grpc.CallOption) (*CreateNotificationResponse, error) {
+	out := new(CreateNotificationResponse)
+	err := c.cc.Invoke(ctx, User_CreateNotification_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) GetUserNotifications(ctx context.Context, in *GetUserNotificationsRequest, opts ...grpc.CallOption) (*GetUserNotificationsResponse, error) {
+	out := new(GetUserNotificationsResponse)
+	err := c.cc.Invoke(ctx, User_GetUserNotifications_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -467,6 +502,7 @@ type UserServer interface {
 	CheckTodayInvite(context.Context, *CheckTodayInviteRequest) (*CheckTodayInviteResponse, error)
 	AddUserInfo(context.Context, *AddUserInfoRequest) (*AddUserInfoResponse, error)
 	QueryUser(context.Context, *QueryUserRequest) (*QueryUserResponse, error)
+	GetUserList(context.Context, *Request) (*UserListResponse, error)
 	AddAdmin(context.Context, *AddAdminRequest) (*AddAdminResponse, error)
 	AdminLogin(context.Context, *AdminLoginRequest) (*AdminLoginResponse, error)
 	RemoveAdmin(context.Context, *RemoveAdminRequest) (*RemoveAdminResponse, error)
@@ -497,6 +533,10 @@ type UserServer interface {
 	CreateNotice(context.Context, *CreateNoticeRequest) (*CreateNoticeResponse, error)
 	RecordNotice(context.Context, *RecordNoticeRequest) (*RecordNoticeResponse, error)
 	QueryRecordNotice(context.Context, *QueryRecordNoticeRequest) (*QueryRecordNoticeResponse, error)
+	// 新增用户消息通知
+	CreateNotification(context.Context, *CreateNotificationRequest) (*CreateNotificationResponse, error)
+	// 获取用户消息通知
+	GetUserNotifications(context.Context, *GetUserNotificationsRequest) (*GetUserNotificationsResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -530,6 +570,9 @@ func (UnimplementedUserServer) AddUserInfo(context.Context, *AddUserInfoRequest)
 }
 func (UnimplementedUserServer) QueryUser(context.Context, *QueryUserRequest) (*QueryUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryUser not implemented")
+}
+func (UnimplementedUserServer) GetUserList(context.Context, *Request) (*UserListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserList not implemented")
 }
 func (UnimplementedUserServer) AddAdmin(context.Context, *AddAdminRequest) (*AddAdminResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddAdmin not implemented")
@@ -617,6 +660,12 @@ func (UnimplementedUserServer) RecordNotice(context.Context, *RecordNoticeReques
 }
 func (UnimplementedUserServer) QueryRecordNotice(context.Context, *QueryRecordNoticeRequest) (*QueryRecordNoticeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryRecordNotice not implemented")
+}
+func (UnimplementedUserServer) CreateNotification(context.Context, *CreateNotificationRequest) (*CreateNotificationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateNotification not implemented")
+}
+func (UnimplementedUserServer) GetUserNotifications(context.Context, *GetUserNotificationsRequest) (*GetUserNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserNotifications not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -789,6 +838,24 @@ func _User_QueryUser_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).QueryUser(ctx, req.(*QueryUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_GetUserList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetUserList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetUserList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetUserList(ctx, req.(*Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1315,6 +1382,42 @@ func _User_QueryRecordNotice_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_CreateNotification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateNotificationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).CreateNotification(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_CreateNotification_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).CreateNotification(ctx, req.(*CreateNotificationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_GetUserNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserNotificationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetUserNotifications(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetUserNotifications_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetUserNotifications(ctx, req.(*GetUserNotificationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1357,6 +1460,10 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueryUser",
 			Handler:    _User_QueryUser_Handler,
+		},
+		{
+			MethodName: "GetUserList",
+			Handler:    _User_GetUserList_Handler,
 		},
 		{
 			MethodName: "AddAdmin",
@@ -1473,6 +1580,14 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueryRecordNotice",
 			Handler:    _User_QueryRecordNotice_Handler,
+		},
+		{
+			MethodName: "CreateNotification",
+			Handler:    _User_CreateNotification_Handler,
+		},
+		{
+			MethodName: "GetUserNotifications",
+			Handler:    _User_GetUserNotifications_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

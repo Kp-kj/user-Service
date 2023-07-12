@@ -37,6 +37,8 @@ type (
 	CreateInviteResponse                  = user.CreateInviteResponse
 	CreateNoticeRequest                   = user.CreateNoticeRequest
 	CreateNoticeResponse                  = user.CreateNoticeResponse
+	CreateNotificationRequest             = user.CreateNotificationRequest
+	CreateNotificationResponse            = user.CreateNotificationResponse
 	CreateSystemNotificationRequest       = user.CreateSystemNotificationRequest
 	CreateSystemNotificationResponse      = user.CreateSystemNotificationResponse
 	CreateUserRequest                     = user.CreateUserRequest
@@ -71,6 +73,8 @@ type (
 	GetNotificationsResponse              = user.GetNotificationsResponse
 	GetSystemNotificationsRequest         = user.GetSystemNotificationsRequest
 	GetSystemNotificationsResponse        = user.GetSystemNotificationsResponse
+	GetUserNotificationsRequest           = user.GetUserNotificationsRequest
+	GetUserNotificationsResponse          = user.GetUserNotificationsResponse
 	HelpCategory                          = user.HelpCategory
 	HelpDocument                          = user.HelpDocument
 	Notice                                = user.Notice
@@ -94,6 +98,8 @@ type (
 	Request                               = user.Request
 	Response                              = user.Response
 	SystemNotification                    = user.SystemNotification
+	UserListResponse                      = user.UserListResponse
+	UserResponseList                      = user.UserResponseList
 
 	User interface {
 		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
@@ -105,6 +111,7 @@ type (
 		CheckTodayInvite(ctx context.Context, in *CheckTodayInviteRequest, opts ...grpc.CallOption) (*CheckTodayInviteResponse, error)
 		AddUserInfo(ctx context.Context, in *AddUserInfoRequest, opts ...grpc.CallOption) (*AddUserInfoResponse, error)
 		QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error)
+		GetUserList(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserListResponse, error)
 		AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error)
 		AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
 		RemoveAdmin(ctx context.Context, in *RemoveAdminRequest, opts ...grpc.CallOption) (*RemoveAdminResponse, error)
@@ -135,6 +142,10 @@ type (
 		CreateNotice(ctx context.Context, in *CreateNoticeRequest, opts ...grpc.CallOption) (*CreateNoticeResponse, error)
 		RecordNotice(ctx context.Context, in *RecordNoticeRequest, opts ...grpc.CallOption) (*RecordNoticeResponse, error)
 		QueryRecordNotice(ctx context.Context, in *QueryRecordNoticeRequest, opts ...grpc.CallOption) (*QueryRecordNoticeResponse, error)
+		// 新增用户消息通知
+		CreateNotification(ctx context.Context, in *CreateNotificationRequest, opts ...grpc.CallOption) (*CreateNotificationResponse, error)
+		// 获取用户消息通知
+		GetUserNotifications(ctx context.Context, in *GetUserNotificationsRequest, opts ...grpc.CallOption) (*GetUserNotificationsResponse, error)
 	}
 
 	defaultUser struct {
@@ -191,6 +202,11 @@ func (m *defaultUser) AddUserInfo(ctx context.Context, in *AddUserInfoRequest, o
 func (m *defaultUser) QueryUser(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.QueryUser(ctx, in, opts...)
+}
+
+func (m *defaultUser) GetUserList(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserListResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.GetUserList(ctx, in, opts...)
 }
 
 func (m *defaultUser) AddAdmin(ctx context.Context, in *AddAdminRequest, opts ...grpc.CallOption) (*AddAdminResponse, error) {
@@ -337,4 +353,16 @@ func (m *defaultUser) RecordNotice(ctx context.Context, in *RecordNoticeRequest,
 func (m *defaultUser) QueryRecordNotice(ctx context.Context, in *QueryRecordNoticeRequest, opts ...grpc.CallOption) (*QueryRecordNoticeResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.QueryRecordNotice(ctx, in, opts...)
+}
+
+// 新增用户消息通知
+func (m *defaultUser) CreateNotification(ctx context.Context, in *CreateNotificationRequest, opts ...grpc.CallOption) (*CreateNotificationResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.CreateNotification(ctx, in, opts...)
+}
+
+// 获取用户消息通知
+func (m *defaultUser) GetUserNotifications(ctx context.Context, in *GetUserNotificationsRequest, opts ...grpc.CallOption) (*GetUserNotificationsResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.GetUserNotifications(ctx, in, opts...)
 }

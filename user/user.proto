@@ -162,12 +162,12 @@ message    GetHelpCategoriesResponse {
 
 // 创建帮助分类
 message CreateHelpCategoryRequest {
-  int64  createdAt = 2;  //创建时间戳
-  int64  categoryStatus = 3;  //分类状态 # 0:上架 1:下架
+  int64  createdAt = 1;  //创建时间戳
+  int64  categoryStatus = 2;  //分类状态 # 0:上架 1:下架
 }
 
 message CreateHelpCategoryResponse {
-  bool is_success = 1;  //是否成功
+  int64 helpCategoryId = 1;  //帮助分类id
 }
 
 // 删除帮助分类
@@ -248,11 +248,11 @@ message  Notification{
 // 新建帮助文档
 message CreateHelpDocumentRequest {
   int64  helpCategoryId = 1;  //帮助分类id
-  int64  documentStatus = 3;  //文档状态 # 0:上架 1:下架
+  int64  documentStatus = 2;  //文档状态 # 0:上架 1:下架
 }
 
 message CreateHelpDocumentResponse {
-  bool is_success = 1;  //是否成功
+  int64 helpDocumentId = 1;  //帮助文档id
 }
 
 
@@ -473,6 +473,45 @@ message OnlineCountResponse{
   int64 count = 1; // 在线人数
 }
 
+//CreateNotificationRequest
+message CreateNotificationRequest{
+  int64 user_id = 1; // 用户id
+  string  noticeContent = 2;   //通知标题
+  int64 recordNotice_status = 3; // 通知状态   1：已发布 2：已下架
+}
+//CreateNotificationResponse
+message CreateNotificationResponse{
+  int64  userNotice_id = 1; // 用户通知id
+  bool is_success = 2;  //是否成功
+}
+
+
+//GetUserNotificationsRequest
+message GetUserNotificationsRequest{
+  int64 userNotice_id = 1; // 用户通知id
+}
+
+//GetUserNotificationsResponse
+message GetUserNotificationsResponse{
+  string  notice_content = 1;   //通知标题
+  int64 user_id = 2; // 用户id
+  int64 notice_status = 3; // 通知状态   1：已发布 2：已下架
+}
+
+
+message UserListResponse{
+  repeated UserResponseList userResponseLists = 1;  //用户
+}
+
+message UserResponseList {
+  string twitter_name = 1;  //推特名
+  string user_name = 2;   //用户名
+  string user_avatar = 3; //用户头像
+}
+
+
+
+
 
 service User {
   rpc Ping(Request) returns(Response);      //心跳 连接测试
@@ -484,6 +523,8 @@ service User {
   rpc CheckTodayInvite(CheckTodayInviteRequest) returns(CheckTodayInviteResponse);  // 检查今天有没有邀请人(给任务服务提供)
   rpc AddUserInfo(AddUserInfoRequest) returns(AddUserInfoResponse);  // 添加用户信息
   rpc QueryUser(QueryUserRequest) returns(QueryUserResponse);  // 查询用户信息
+  rpc GetUserList(Request) returns(UserListResponse);  // 获取用户列表
+
 
   rpc AddAdmin(AddAdminRequest) returns(AddAdminResponse);  // 添加管理员
   rpc AdminLogin(AdminLoginRequest) returns(AdminLoginResponse);  // 管理员登录
@@ -523,16 +564,21 @@ service User {
   rpc CreateNotice(CreateNoticeRequest) returns(CreateNoticeResponse); // 新增通知
   rpc RecordNotice(RecordNoticeRequest) returns(RecordNoticeResponse); // 通知记录列表
   rpc QueryRecordNotice(QueryRecordNoticeRequest) returns(QueryRecordNoticeResponse); // 查询通知记录
-  //rpc EditRecordNotice(EditRecordNoticeRequest) returns(EditRecordNoticeResponse); // 编辑通知记录是否已读
-  //rpc DeleteRecordNotice(DeleteRecordNoticeRequest) returns(DeleteRecordNoticeResponse); // 删除通知记录
-
+  //rpc EditRecordNotice(EditRecordNoticeRequest) returns(EditRecordNoticeResponse); // 编辑通知记录是否已读   //暂时不要
+  //rpc DeleteRecordNotice(DeleteRecordNoticeRequest) returns(DeleteRecordNoticeResponse); // 删除通知记录   //暂时不要
 
   // 新增用户消息通知
-  //rpc CreateNotification(CreateNotificationRequest) returns(CreateNotificationResponse); // 新增消息通知
-  // 编辑用户消息通知
-  //rpc EditNotification(EditNotificationRequest) returns(EditNotificationResponse); // 编辑消息通知
+  rpc CreateNotification(CreateNotificationRequest) returns(CreateNotificationResponse); // 新增消息通知
   // 获取用户消息通知
-  //rpc GetUserNotifications(GetUserNotificationsRequest) returns(GetUserNotificationsResponse); // 获取用户消息通知
+  rpc GetUserNotifications(GetUserNotificationsRequest) returns(GetUserNotificationsResponse); // 获取用户消息通知列表
+
+
+  // 白名单
+
+  // 空投
+
+
+
 
 
 }

@@ -67,6 +67,11 @@ func (s *UserServer) QueryUser(ctx context.Context, in *user.QueryUserRequest) (
 	return l.QueryUser(in)
 }
 
+func (s *UserServer) GetUserList(ctx context.Context, in *user.Request) (*user.UserListResponse, error) {
+	l := logic.NewGetUserListLogic(ctx, s.svcCtx)
+	return l.GetUserList(in)
+}
+
 func (s *UserServer) AddAdmin(ctx context.Context, in *user.AddAdminRequest) (*user.AddAdminResponse, error) {
 	l := logic.NewAddAdminLogic(ctx, s.svcCtx)
 	return l.AddAdmin(in)
@@ -211,4 +216,16 @@ func (s *UserServer) RecordNotice(ctx context.Context, in *user.RecordNoticeRequ
 func (s *UserServer) QueryRecordNotice(ctx context.Context, in *user.QueryRecordNoticeRequest) (*user.QueryRecordNoticeResponse, error) {
 	l := logic.NewQueryRecordNoticeLogic(ctx, s.svcCtx)
 	return l.QueryRecordNotice(in)
+}
+
+// 新增用户消息通知
+func (s *UserServer) CreateNotification(ctx context.Context, in *user.CreateNotificationRequest) (*user.CreateNotificationResponse, error) {
+	l := logic.NewCreateNotificationLogic(ctx, s.svcCtx)
+	return l.CreateNotification(in)
+}
+
+// 获取用户消息通知
+func (s *UserServer) GetUserNotifications(ctx context.Context, in *user.GetUserNotificationsRequest) (*user.GetUserNotificationsResponse, error) {
+	l := logic.NewGetUserNotificationsLogic(ctx, s.svcCtx)
+	return l.GetUserNotifications(in)
 }

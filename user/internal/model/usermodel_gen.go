@@ -30,6 +30,7 @@ type (
 		Update(ctx context.Context, data *User) error
 		Delete(ctx context.Context, userId int64) error
 		Count(ctx context.Context) (int64, error)
+		FindAll(ctx context.Context) ([]*User, error)
 	}
 
 	defaultUserModel struct {
@@ -80,6 +81,24 @@ func (m *defaultUserModel) FindOne(ctx context.Context, userId int64) (*User, er
 		return nil, err
 	}
 }
+
+
+func (m *defaultUserModel) FindAll(ctx context.Context) ([]*User, error) {
+	query := fmt.Sprintf("select %s from %s", userRows, m.table)
+	var resp []*User
+	err := m.conn.QueryRowsCtx(ctx, &resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	case sqlc.ErrNotFound:
+		return nil, ErrNotFound
+	default:
+		return nil, err
+	}
+}
+
+
+
 
 func (m *defaultUserModel) FindOneByTwitterId(ctx context.Context, twitterId string) (*User, error) {
 	var resp User
