@@ -31,10 +31,11 @@ func (l *CreateHelpDocumentLogic) CreateHelpDocument(in *user.CreateHelpDocument
 		return nil, err
 	}
 
+	helpdocumentId := node.Generate().Int64()
 	_, err = l.svcCtx.HelpDocument.Insert(l.ctx, &model.Helpdocument{
-		HelpDocumentId: node.Generate().Int64(), //雪花ID
-		HelpCategoryId: in.HelpCategoryId,       //帮助分类ID
-		DocumentStatus: in.DocumentStatus,       //上架状态 0 下架 1 上架
+		HelpDocumentId: helpdocumentId,    //雪花ID
+		HelpCategoryId: in.HelpCategoryId, //帮助分类ID
+		DocumentStatus: in.DocumentStatus, //上架状态 0 下架 1 上架
 	})
 	if err != nil {
 		logx.Error(err)
@@ -42,6 +43,6 @@ func (l *CreateHelpDocumentLogic) CreateHelpDocument(in *user.CreateHelpDocument
 	}
 
 	return &user.CreateHelpDocumentResponse{
-		IsSuccess: true,
+		HelpDocumentId: helpdocumentId,
 	}, nil
 }

@@ -33,7 +33,7 @@ func (l *CreateHelpCategoryLogic) CreateHelpCategory(in *user.CreateHelpCategory
 		return nil, err
 	}
 
-	_, err = l.svcCtx.HelpCategory.Insert(l.ctx, &model.HelpCategory{ // 插入数据
+	dbHelpCategory, err := l.svcCtx.HelpCategory.InsertReturnId(l.ctx, &model.HelpCategory{ // 插入数据
 		HelpCategoryId: node.Generate().Int64(),
 		CreatedAt:      time.Time{},
 		CategoryStatus: 1,
@@ -44,6 +44,6 @@ func (l *CreateHelpCategoryLogic) CreateHelpCategory(in *user.CreateHelpCategory
 	}
 
 	return &user.CreateHelpCategoryResponse{
-		IsSuccess: true,
+		HelpCategoryId: dbHelpCategory,
 	}, nil
 }
