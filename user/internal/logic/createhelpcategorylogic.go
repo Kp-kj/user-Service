@@ -2,8 +2,9 @@ package logic
 
 import (
 	"context"
+	"fmt"
 	"github.com/bwmarrin/snowflake"
-	"time"
+	"strconv"
 	"user/internal/model"
 	"user/internal/svc"
 	"user/user"
@@ -32,18 +33,22 @@ func (l *CreateHelpCategoryLogic) CreateHelpCategory(in *user.CreateHelpCategory
 	if err != nil {
 		return nil, err
 	}
-
-	dbHelpCategory, err := l.svcCtx.HelpCategory.InsertReturnId(l.ctx, &model.HelpCategory{ // 插入数据
-		HelpCategoryId: node.Generate().Int64(),
-		CreatedAt:      time.Time{},
+	var helpCategoryId int64
+	helpCategoryId = node.Generate().Int64()
+	_, err = l.svcCtx.HelpCategory.Insert(l.ctx, &model.HelpCategory{
+		HelpCategoryId: helpCategoryId,
 		CategoryStatus: 1,
 	})
+
 	if err != nil {
+		fmt.Println("err:")
 		logx.Error(err)
 		return nil, err
 	}
+	fmt.Println("helpCategoryId:", helpCategoryId)
 
+	// 在这里使用 helpCategoryId
 	return &user.CreateHelpCategoryResponse{
-		HelpCategoryId: dbHelpCategory,
+		HelpCategoryId: strconv.FormatInt(helpCategoryId, 10),
 	}, nil
 }

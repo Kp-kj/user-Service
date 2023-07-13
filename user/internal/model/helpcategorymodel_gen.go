@@ -25,7 +25,6 @@ var (
 type (
 	helpCategoryModel interface {
 		Insert(ctx context.Context, data *HelpCategory) (sql.Result, error)
-		InsertReturnId(ctx context.Context, data *HelpCategory) (int64, error)
 		FindOne(ctx context.Context, helpCategoryId int64) (*HelpCategory, error)
 		Update(ctx context.Context, data *HelpCategory) error
 		Delete(ctx context.Context, helpCategoryId int64) error
@@ -113,17 +112,6 @@ func (m *defaultHelpCategoryModel) Edith(ctx context.Context,helpCategoryId int6
 	return err
 }
 
-
-//InsertReturnId(ctx context.Context, data *HelpCategory) (int64, error)
-func (m *defaultHelpCategoryModel) InsertReturnId(ctx context.Context, data *HelpCategory) (int64, error) {
-	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?)", m.table, helpCategoryRowsExpectAutoSet)
-	var resp sql.Result
-	var err error
-	if resp, err = m.conn.ExecCtx(ctx, query, data.DeletedAt, data.CategoryStatus); err != nil {
-		return 0, err
-	}
-	return resp.LastInsertId()
-}
 
 
 func (m *defaultHelpCategoryModel) Insert(ctx context.Context, data *HelpCategory) (sql.Result, error) {
