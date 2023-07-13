@@ -167,7 +167,7 @@ message CreateHelpCategoryRequest {
 }
 
 message CreateHelpCategoryResponse {
-  int64 helpCategoryId = 1;  //帮助分类id
+  string helpCategoryId = 1;  //帮助分类id
 }
 
 // 删除帮助分类
