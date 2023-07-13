@@ -30,6 +30,8 @@ type (
 		Delete(ctx context.Context, helpDocumentId int64) error
 		FindAll(ctx context.Context) ([]*Helpdocument, error)
 		Edithelpdocument(ctx context.Context, helpDocumentId int64, documentStatus int64) error
+		//查询30条数据如果传lastId则查询lastId之后30条的数据，并返回总的数据条数
+		FindAllByPage(ctx context.Context, lastId int64) ([]*Helpdocument, int64, error)
 
 	}
 
@@ -95,6 +97,24 @@ func (m *defaultHelpdocumentModel) FindAll(ctx context.Context) ([]*Helpdocument
 		return nil, err
 	}
 }
+
+//		//查询30条数据如果传lastId则查询lastId之后30条的数据，并返回总的数据条数
+//		FindAllByPage(ctx context.Context, lastId int64) ([]*Helpdocument, int64, error)
+func (m *defaultHelpdocumentModel) FindAllByPage(ctx context.Context, lastId int64) ([]*Helpdocument, int64, error) {
+	query := fmt.Sprintf("select %s from %s where `helpDocument_id` > ? order by `helpDocument_id` asc limit 30", helpdocumentRows, m.table)
+	var resp []*Helpdocument
+	err := m.conn.QueryRowsCtx(ctx, &resp, query, lastId)
+	switch err {
+	case nil:
+		return resp, int64(len(resp)), nil
+	case sqlc.ErrNotFound:
+		return nil, 0, ErrNotFound
+	default:
+		return nil, 0, err
+	}
+}
+
+
 
 //Edithelpdocument 修改帮助文档状态
 func (m *defaultHelpdocumentModel) Edithelpdocument(ctx context.Context, helpDocumentId int64, documentStatus int64) error {
