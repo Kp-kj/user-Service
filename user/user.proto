@@ -509,7 +509,56 @@ message UserResponseList {
   string user_avatar = 3; //用户头像
 }
 
+//QueryHelpCategoryRequest
+message QueryHelpCategoryRequest{
+  //CategoryName
+  string  categoryName = 1;   //类别名
+  int64  limit = 2; // 每页条数
+  //IsShow
+  int64  isShow = 3; // 是否显示 0:上架 1:下架 2:全部
+  //LastId
+  int64  lastId = 4; // 上条最后数据的id 用来刷新
 
+}
+
+//TotalCategoryResponse
+message TotalCategory{
+  //分类id
+  int64  categoryId = 1; // 分类id
+  //分类名
+  string  categoryName = 2;   //类别名
+  //是否显示
+  int64  isShow = 3; // 是否显示 0：默认 1：显示 2：不显示
+}
+
+
+//QueryHelpCategoryResponse
+message QueryHelpCategoryResponse {
+    //TotalCount
+    int64  totalCount = 1; // 总条数
+    repeated TotalCategory totalCategorys = 2;
+}
+
+//QueryHelpDocumentRequest
+message QueryHelpDocumentRequest{
+  string  documentTitle = 1;   //文档标题
+  int64  isShow = 2; // 是否显示 0:上架 1:下架 2:全部
+  int64  lastId = 3; // 上条最后数据的id 用来刷新
+}
+
+//TotalDocument
+message TotalDocument{
+  int64  documentId = 1; // 文档id
+  string  documentTitle = 2;   //文档标题
+  string  categoryName = 4;   //类别名
+  int64  isShow = 5; // 是否显示 0：默认 1：显示 2：不显示
+}
+
+//QueryHelpDocumentResponse
+message QueryHelpDocumentResponse{
+  int64 totalCount = 1; // 总条数
+  repeated TotalDocument totalDocuments = 2;
+}
 
 
 
@@ -544,6 +593,10 @@ service User {
   rpc GetHelpCategoryTranslations(GetHelpCategoryTranslationsRequest) returns(GetHelpCategoryTranslationsResponse);  // 获取帮助分类翻译
   rpc EditHelpCategoryTranslation(EditHelpCategoryTranslationRequest) returns(EditHelpCategoryTranslationResponse);  // 编辑帮助分类翻译
 
+
+  rpc QueryHelpCategory(QueryHelpCategoryRequest) returns(QueryHelpCategoryResponse);    // 按条件查找分类  Todo: 7.12新增 未测试
+
+
   rpc GetHelpDocuments(GetHelpDocumentsRequest) returns(GetHelpDocumentsResponse);  // 获取帮助文档
   rpc CreateHelpDocument(CreateHelpDocumentRequest) returns(CreateHelpDocumentResponse);  // 新建帮助文档
   rpc DeleteHelpDocument(DeleteHelpDocumentRequest) returns(DeleteHelpDocumentResponse);  // 删除帮助文档
@@ -554,6 +607,7 @@ service User {
   rpc GetHelpDocumentTranslations(GetHelpDocumentTranslationsRequest) returns(GetHelpDocumentTranslationsResponse);  // 获取帮助文档翻译
   rpc EditHelpDocumentTranslation(EditHelpDocumentTranslationRequest) returns(EditHelpDocumentTranslationResponse);  // 编辑帮助文档翻译
 
+  rpc QueryHelpDocument(QueryHelpDocumentRequest) returns(QueryHelpDocumentResponse);    // 按条件查找文档  Todo: 7.12新增 未测试
 
   rpc CreateSystemNotification(CreateSystemNotificationRequest) returns(CreateSystemNotificationResponse); // 新增系统消息通知
   rpc EditSystemNotification(EditSystemNotificationRequest) returns(EditSystemNotificationResponse); // 编辑系统消息通知

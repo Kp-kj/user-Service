@@ -142,6 +142,11 @@ func (s *UserServer) EditHelpCategoryTranslation(ctx context.Context, in *user.E
 	return l.EditHelpCategoryTranslation(in)
 }
 
+func (s *UserServer) QueryHelpCategory(ctx context.Context, in *user.QueryHelpCategoryRequest) (*user.QueryHelpCategoryResponse, error) {
+	l := logic.NewQueryHelpCategoryLogic(ctx, s.svcCtx)
+	return l.QueryHelpCategory(in)
+}
+
 func (s *UserServer) GetHelpDocuments(ctx context.Context, in *user.GetHelpDocumentsRequest) (*user.GetHelpDocumentsResponse, error) {
 	l := logic.NewGetHelpDocumentsLogic(ctx, s.svcCtx)
 	return l.GetHelpDocuments(in)
@@ -180,6 +185,11 @@ func (s *UserServer) GetHelpDocumentTranslations(ctx context.Context, in *user.G
 func (s *UserServer) EditHelpDocumentTranslation(ctx context.Context, in *user.EditHelpDocumentTranslationRequest) (*user.EditHelpDocumentTranslationResponse, error) {
 	l := logic.NewEditHelpDocumentTranslationLogic(ctx, s.svcCtx)
 	return l.EditHelpDocumentTranslation(in)
+}
+
+func (s *UserServer) QueryHelpDocument(ctx context.Context, in *user.QueryHelpDocumentRequest) (*user.QueryHelpDocumentResponse, error) {
+	l := logic.NewQueryHelpDocumentLogic(ctx, s.svcCtx)
+	return l.QueryHelpDocument(in)
 }
 
 func (s *UserServer) CreateSystemNotification(ctx context.Context, in *user.CreateSystemNotificationRequest) (*user.CreateSystemNotificationResponse, error) {
